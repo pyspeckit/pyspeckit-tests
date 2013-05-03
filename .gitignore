@@ -1,0 +1,5 @@
+ipython*py
+tests_[0-9]*/
+*png
+*html
+JaneRigby
