@@ -71,6 +71,7 @@ assert spec.baseline.includemask.sum() == 107
 
 event1 = matplotlib.backend_bases.KeyEvent('key_press_event', spec.plotter.axis.figure.canvas,key='B')
 spec.plotter.parse_keys(event1)
+print "spec.baseline.includemask.sum()",spec.baseline.includemask.sum()
 assert spec.baseline.includemask.sum() == 0
 event2 = matplotlib.backend_bases.MouseEvent('button_press_event', spec.plotter.axis.figure.canvas,button=1,x=-153.3,y=-0.007)
 event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,1,-153.3,-0.007
