@@ -1,5 +1,6 @@
 import pyspeckit
 import matplotlib
+import numpy as np
 
 if not 'savedir' in globals():
     savedir = ''
@@ -64,3 +65,27 @@ spec.plotter.figure.canvas.toolbar.release_zoom(event4)
 #spec.plotter.debug=True
 spec.baseline(excludefit=True,use_window_limits=True,highlight=True)
 spec.specfit(use_window_limits=True)
+
+# Regression test: make sure baseline selection works
+assert spec.baseline.includemask.sum() == 107
+
+event1 = matplotlib.backend_bases.KeyEvent('key_press_event', spec.plotter.axis.figure.canvas,key='B')
+spec.plotter.parse_keys(event1)
+print "spec.baseline.includemask.sum()",spec.baseline.includemask.sum()
+assert spec.baseline.includemask.sum() == 0
+event2 = matplotlib.backend_bases.MouseEvent('button_press_event', spec.plotter.axis.figure.canvas,button=1,x=-153.3,y=-0.007)
+event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,1,-153.3,-0.007
+spec.baseline.event_manager(event2,debug=True)
+event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,1,-41.5,-0.01
+spec.baseline.event_manager(event2,debug=True)
+assert spec.baseline.includemask.sum() == 99
+
+event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,1,59,-0.1
+spec.baseline.event_manager(event2,debug=True)
+event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,1,244,0.1
+spec.baseline.event_manager(event2,debug=True)
+assert spec.baseline.includemask.sum() == 264
+
+event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,3,244,0.1
+spec.baseline.event_manager(event2,debug=True)
+np.testing.assert_array_almost_equal(spec.baseline.baselinepars, np.array([-0.00016474, -0.01488391]))
