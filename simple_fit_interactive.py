@@ -76,6 +76,7 @@ spec.baseline.highlight_fitregion()
 # this should *NOT* be 107!  107 is ALL data between -100 and +20
 # this should be 102, which tells you that the fit has been excluded!
 # (note added 2/12/2014)
+print spec.baseline.includemask.sum()
 assert spec.baseline.includemask.sum() == 102
 
 event1 = matplotlib.backend_bases.KeyEvent('key_press_event', spec.plotter.axis.figure.canvas,key='B')
