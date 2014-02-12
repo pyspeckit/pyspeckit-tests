@@ -77,8 +77,7 @@ if __name__ == "__main__":
     parser=optparse.OptionParser()
     parser.add_option("--scalekeyword",help="Scale the data before fitting?",default='ETAMB')
     parser.add_option("--vguess",help="Velocity guess",default=0.0)
-    parser.add_option("--smooth6cm",help="Smooth the 6cm spectrum",default=3)
-    parser.add_option("--pymc",help="pymc?",default=False)
+    parser.add_option("--pymc",help="pymc?",default=False,action='store_true')
 
     options,args = parser.parse_args()
 
@@ -104,10 +103,12 @@ if __name__ == "__main__":
     sp1.specfit(fittype='formaldehyde_mm_radex',multifit=True,guesses=[100,13.2,4.5,options.vguess,7.0],
             limits=[(20,200),(11,15),(3,5.5),(-5,5),(2,15)], limited=[(True,True)]*5, 
             fixed=[False,False,True,False,False], quiet=False,)
+    sp1.plotter.savefig('h2co_mm_fit_303-202_321-220.png')
     sp2.plotter(figure=2)
     sp2.specfit(fittype='formaldehyde_mm_radex_b',multifit=True,guesses=[100,13.2,4.5,options.vguess,7.0],
             limits=[(20,200),(11,15),(3,5.5),(-5,5),(2,15)], limited=[(True,True)]*5, 
             fixed=[False,False,True,False,False], quiet=False,)
+    sp2.plotter.savefig('h2co_mm_fit_303-202_322-221.png')
     sp3.plotter(figure=3)
 
 
@@ -126,10 +127,12 @@ if __name__ == "__main__":
     sp3.specfit.plot_model([150,12.39,5.00,2.85,8.75392],clear=False,composite_fit_color='y',alpha=0.5,plotkwargs={'label':'T=150 (bad)'})
     sp3.specfit.plot_model([200,12.33,5.00,2.85,8.75392],clear=False,composite_fit_color='orange',alpha=0.5,plotkwargs={'label':'T=200 (bad)'})
     sp3.plotter.axis.legend(loc='best')
+    sp3.plotter.savefig('h2co_mm_fit_multiT_models.png')
 
     sp3.specfit(fittype='formaldehyde_mm_radex_both',multifit=True,guesses=[100,13.2,4.5,options.vguess,7.0],
             limits=[(20,200),(11,15),(2.5,6.5),(-5,5),(2,15)], limited=[(True,True)]*5, 
             fixed=[False,False,False,False,False], quiet=False,)
+    sp3.plotter.savefig('h2co_mm_fit_all3lines.png')
     sp3.specfit.parinfo.TEMPERATURE0.error=50
     sp3.specfit.parinfo.TEMPERATURE0.value=100
     sp3.specfit.parinfo.COLUMN0.error=2
@@ -152,7 +155,7 @@ if __name__ == "__main__":
         agpy.pymc_plotting.hist2d(spmc, 'TEMPERATURE0', 'COLUMN0', doerrellipse=False, clear=True, bins=50,fignum=5)
         agpy.pymc_plotting.hist2d(spmc, 'DENSITY0', 'COLUMN0', doerrellipse=False, clear=True, bins=50,fignum=6)
 
-        spmchdf5b.sample(1e6)
+        spmchdf5b.sample(1e5)
         agpy.pymc_plotting.hist2d(spmchdf5b, 'TEMPERATURE0', 'DENSITY0', doerrellipse=False, clear=True, bins=50, fignum=4)
         pl.savefig("h2co_mm_tem_vs_den_tmb2.png")
         agpy.pymc_plotting.hist2d(spmchdf5b, 'TEMPERATURE0', 'COLUMN0', doerrellipse=False, clear=True, bins=50,fignum=5)
@@ -160,7 +163,7 @@ if __name__ == "__main__":
         agpy.pymc_plotting.hist2d(spmchdf5b, 'DENSITY0', 'COLUMN0', doerrellipse=False, clear=True, bins=50,fignum=6)
         pl.savefig("h2co_mm_den_vs_col_tmb2.png")
 
-        spmchdf5d.sample(1e6)
+        spmchdf5d.sample(1e5)
         spmchdf5d.db.close()
         agpy.pymc_plotting.hist2d(spmchdf5d, 'TEMPERATURE0', 'DENSITY0', doerrellipse=False, clear=True, bins=50, fignum=4)
         pl.savefig("h2co_mm_tem_vs_den_tmb_vel.png")
@@ -169,7 +172,7 @@ if __name__ == "__main__":
         agpy.pymc_plotting.hist2d(spmchdf5d, 'DENSITY0', 'COLUMN0', doerrellipse=False, clear=True, bins=50,fignum=6)
         pl.savefig("h2co_mm_den_vs_col_tmb_vel.png")
 
-        pars = dict([(k,spmchdf5.trace(k)[-50:]) for k in sp3.specfit.parinfo.keys()])
+        pars = dict([(k,spmchdf5b.trace(k)[-50:]) for k in sp3.specfit.parinfo.keys()])
         for ii in xrange(0,50):
             sp3.specfit.plot_model( [pars[k][ii] for k in sp3.specfit.parinfo.keys()],
                     clear=False, 
@@ -177,7 +180,7 @@ if __name__ == "__main__":
                     plotkwargs={'alpha':0.01})
 
         sp3.plotter.autorefresh=False
-        pars = dict([(k,spmchdf5c.trace(k)[-1000:]) for k in sp3.specfit.parinfo.keys()])
+        pars = dict([(k,spmchdf5d.trace(k)[-1000:]) for k in sp3.specfit.parinfo.keys()])
         for ii in xrange(0,1000):
             sp3.specfit.plot_model( [pars[k][ii] for k in sp3.specfit.parinfo.keys()],
                     clear=False, 
