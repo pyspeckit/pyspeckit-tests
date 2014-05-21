@@ -1,4 +1,7 @@
-import pyfits
+try:
+    from astropy.io import fits as pyfits
+except ImportError:
+    import pyfits
 import numpy as np
 
 # generate an X-array in MHz units
