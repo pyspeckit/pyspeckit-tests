@@ -76,14 +76,18 @@ x,y = transform((20,0.16))
 event4 = matplotlib.backend_bases.MouseEvent('button_release_event', spec.plotter.axis.figure.canvas,button=1,x=x,y=y)
 event4.inaxes = spec.plotter.axis
 
-spec.plotter.figure.canvas.toolbar.press_zoom(event2)
-spec.plotter.figure.canvas.toolbar._xypress=[(event2.x,event2.y,spec.plotter.axis,0,spec.plotter.axis.viewLim.frozen(),spec.plotter.axis.transData.frozen())]
-spec.plotter.figure.canvas.toolbar.drag_zoom(event3)
-spec.plotter.figure.canvas.toolbar.release_zoom(event4)
+if hasattr(spec.plotter.figure.canvas,'toolbar'):
+    spec.plotter.figure.canvas.toolbar.press_zoom(event2)
+    spec.plotter.figure.canvas.toolbar._xypress=[(event2.x,event2.y,spec.plotter.axis,0,spec.plotter.axis.viewLim.frozen(),spec.plotter.axis.transData.frozen())]
+    spec.plotter.figure.canvas.toolbar.drag_zoom(event3)
+    spec.plotter.figure.canvas.toolbar.release_zoom(event4)
 
-# make sure zoom worked
-np.testing.assert_array_almost_equal(spec.plotter.axis.get_xlim(), [-100, 20])
-np.testing.assert_array_almost_equal(spec.plotter.axis.get_ylim(), [-0.07, 0.16])
+    # make sure zoom worked
+    np.testing.assert_array_almost_equal(spec.plotter.axis.get_xlim(), [-100, 20])
+    np.testing.assert_array_almost_equal(spec.plotter.axis.get_ylim(), [-0.07, 0.16])
+else:
+    spec.plotter.axis.set_xlim(-100, 20)
+    spec.plotter.axis.set_ylim(-0.07, 0.16)
 
 #spec.plotter.debug=True
 print "Includemask before excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
