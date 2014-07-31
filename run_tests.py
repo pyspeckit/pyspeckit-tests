@@ -2,35 +2,15 @@ interactive=False
 import subprocess
 import os
 import matplotlib
-matplotlib.use('TkAgg')
-from matplotlib.pyplot import ion,ioff
-if interactive:
-    ion()
-else:
-    ioff()
 
-#def test_units():
-#    from pyspeckit.spectrum.tests import test_units as tu
-#    for p in tu.params:
-#        tu.test_convert_units(*p)
-#        tu.test_convert_back(*p)
+def test_everything(savedir=''):
 
-dir_prefix = os.path.split(os.path.abspath(__file__))[0]
-if os.path.exists(dir_prefix):
-    os.chdir(dir_prefix)
-
-savedir = ''
-
-if False:
-    versnum = subprocess.Popen(["hg","id","--num"],stdout=subprocess.PIPE).communicate()[0].strip().strip("+")
-    if versnum != "":
-        savedir = "tests_%s/" % versnum
-        if not os.path.exists(savedir):
-            os.mkdir(savedir)
+    matplotlib.use('TkAgg')
+    from matplotlib.pyplot import ion,ioff
+    if interactive:
+        ion()
     else:
-        savedir = ""
-
-def test_everything():
+        ioff()
 
     #test_units()
     from pyspeckit.spectrum.tests import test_units as tu
