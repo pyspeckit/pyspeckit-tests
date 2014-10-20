@@ -83,4 +83,27 @@ if anothertry:
             ,fixed=[False,False,False,False,False,True]*2,quiet=False)
     sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit_fixedfortho0.png')
 
+from pyspeckit.spectrum.models import ammonia
+
+taudict = ammonia.ammonia(sp.xarr, tkin=sp.specfit.parinfo.tkin0.value,
+                          tex=sp.specfit.parinfo.tex0.value,
+                          ntot=sp.specfit.parinfo.ntot0.value,
+                          width=sp.specfit.parinfo.width0.value,
+                          return_tau=True)
+
+# Empirical values (i.e., I just tried it...)
+assert 5 < taudict['oneone'] < 7
+
+# This works, but it probably yields unphysical temperatures
+#sp.specfit(fittype='ammonia', multifit=True,
+#           guesses=[15,1e10,14.19,0.68,97.3,0.5]+[15,1e10,14.15,0.52,95.8,0.35],
+#           fixed=[False,True,False,False,False,False]*2,
+#           quiet=False)
+#
+#taudict2 = ammonia.ammonia(sp.xarr, tkin=sp.specfit.parinfo.tkin0.value,
+#                          tex=sp.specfit.parinfo.tex0.value,
+#                          ntot=sp.specfit.parinfo.ntot0.value,
+#                          width=sp.specfit.parinfo.width0.value,
+#                          return_tau=True)
+
 if interactive: raw_input('Press enter to end code')

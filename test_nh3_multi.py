@@ -151,6 +151,15 @@ if True:
     sp.specfit.annotate(labelspacing=0.05,prop={'size':'small','stretch':'extra-condensed'},frameon=False,)
     sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit_multipanel_zoom_basedon33.png')
 
+from pyspeckit.spectrum.models import ammonia
 
+taudict = ammonia.ammonia(sp.xarr, tkin=sp.specfit.parinfo.tkin0.value,
+                          tex=sp.specfit.parinfo.tex0.value,
+                          ntot=sp.specfit.parinfo.ntot0.value,
+                          width=sp.specfit.parinfo.width0.value,
+                          return_tau=True)
+
+# Empirical result
+assert 40 < taudict['oneone'] < 42
 
 if interactive: raw_input('Press enter to end code')
