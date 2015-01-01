@@ -1,4 +1,8 @@
 import numpy as np
+from pyspeckit.spectrum.models import ammonia
+import pytest
+import pyspeckit
+
 """
 Test nh3 model against Erik's IDL-based code
 
@@ -11,8 +15,25 @@ v = findgen(150)*0.4 - 30
 print,v
 ckms = 2.99792458d5
 print,(1-v/ckms)*23.6944955d9
-testspec = nh3model(v, /n11, tkin=20, tex=20, logn=14, sigv=1.0, fortho=0.5, v0=0)
+testspec = nh3model(v, /n11, tkin=20., tex=20., logn=14., sigv=1.0, fortho=0.5, v0=0.)
 print,testspec
+
+v = findgen(150)*0.4 - 30
+print,v
+ckms = 2.99792458d5
+print,(1-v/ckms)*23.6944955d9
+testspec2 = nh3model(v, /n11, tkin=30., tex=10., logn=14., sigv=1.0, fortho=0.5, v0=0.)
+print,testspec2
+
+Test against Charles Figura's NH3
+v = findgen(150)*0.4 - 30
+sigv = 1.0*sqrt(8*alog(2.D))
+amp = 1.0 ; amplitude of main?
+tau = 0.5
+vcen = 0.0
+a = [amp, tau, vcen, sigv]
+ammonias11hfs_new, v, a, f, pder
+print,f
 """
 
 xarr_idl_str = """
@@ -55,44 +76,95 @@ testspec_idl_str = """
    3.8271617e-15       0.0000000       0.0000000       0.0000000       0.0000000       0.0000000
 """
 
-idl_test_xarr = np.array(xarr_idl_str.split(), dtype='float')
-idl_test_spectrum = np.array(testspec_idl_str.split(), dtype='float')
+testspec_idl_str2 = """
+       0.0000000       0.0000000       0.0000000       0.0000000       0.0000000       0.0000000   8.0395504e-16   1.2863281e-14   2.5806957e-13
+   4.3711037e-12   6.3042137e-11   7.7512847e-10   8.1251336e-09   7.2612931e-08   5.5325076e-07   3.5939027e-06   1.9904607e-05   9.3991721e-05
+   0.00037842474    0.0012990079    0.0038016142    0.0094843767     0.020168827     0.036557350     0.056488160     0.074439374     0.083698995
+     0.080322225     0.065782329     0.045958696     0.027379038     0.013904256    0.0060193730    0.0022216252   0.00069914883   0.00018762318
+   4.2937940e-05   8.3800422e-06   1.3947752e-06   1.9800100e-07   2.4285581e-08   6.0013674e-09   3.3331544e-08   2.6526374e-07   1.8135042e-06
+   1.0586940e-05   5.2795904e-05   0.00022502894   0.00082024281    0.0025586496    0.0068354009     0.015651194     0.030743413     0.051861872
+     0.075235407     0.094001508      0.10129766     0.094238678     0.075710173     0.052511969     0.031426187     0.016216909    0.0072114857
+    0.0027658949   0.00094083093   0.00041940729   0.00077235033    0.0026700582    0.0085030973     0.023245109     0.054315108      0.10844030
+      0.18505497      0.27028346      0.33860604      0.36465745      0.33796361      0.26941435      0.18443134      0.10824680     0.054427541
+     0.023446474    0.0086590903    0.0027503440   0.00079004598   0.00037220815   0.00077764033    0.0023803200    0.0064887859     0.015161968
+     0.030312706     0.051871375     0.076027863     0.095538610      0.10302788     0.095403044     0.075865144     0.051793767     0.030346882
+     0.015256818    0.0065812331    0.0024357191   0.00077336793   0.00021060755   4.9175163e-05   9.8407196e-06   1.6869586e-06   2.4765361e-07
+   3.1538475e-08   7.9702630e-09   4.2548774e-08   3.2896556e-07   2.1856386e-06   1.2395494e-05   6.0023606e-05   0.00024827249   0.00087761395
+    0.0026525794    0.0068593727     0.015185315     0.028801223     0.046845295     0.065419586     0.078546349     0.081181662     0.072289876
+     0.055481330     0.036700443     0.020920663     0.010274548    0.0043461673    0.0015827261   0.00049590228   0.00013357499   3.0903708e-05
+   6.1355966e-06   1.0443702e-06   1.5228065e-07   1.9005089e-08   2.0287673e-09   1.8512940e-10   1.4432621e-11   9.6072765e-13   5.4669022e-14
+   2.4118686e-15       0.0000000       0.0000000       0.0000000       0.0000000       0.0000000
+"""
 
-from pyspeckit.spectrum.models import ammonia
-import pyspeckit
+# abandoned this comparison because this approach uses an arbitrary T_astar
+# scaling and is therefore not readily compared
+testspec_figura_str = """
+       0.0000000       0.0000000       0.0000000       0.0000000       0.0000000   2.2318416e-17   8.0064868e-16   1.7397448e-14   3.2135075e-13
+   5.0803086e-12   6.8701383e-11   7.9476600e-10   7.8659774e-09   6.6610570e-08   4.8266371e-07   2.9929144e-06   1.5882667e-05   7.2136546e-05
+   0.00028040855   0.00093279278    0.0026547375    0.0064610874     0.013441206     0.023900043     0.036352310     0.047378274     0.053014002
+     0.050986712     0.042131286     0.029861422     0.018119131    0.0094003081    0.0041686854    0.0015807206   0.00051278216   0.00014236386
+   3.3832906e-05   6.8830021e-06   1.1986980e-06   1.7872220e-07   2.3138261e-08   5.9869568e-09   3.1296970e-08   2.3636047e-07   1.5405535e-06
+   8.6070131e-06   4.1236195e-05   0.00016950520   0.00059812948    0.0018126912    0.0047198446     0.010561898     0.020323544     0.033669083
+     0.048129845     0.059547082     0.063944429     0.059689378     0.048415919     0.034064981     0.020746122     0.010919080    0.0049629489
+    0.0019510547   0.00068475505   0.00031988795   0.00058679485    0.0019586387    0.0060424012     0.016028682     0.036330346     0.070245007
+      0.11597792      0.16431094      0.20135531      0.21508893      0.20094358      0.16371038      0.11547770     0.070004371     0.036315080
+     0.016111746    0.0061251078    0.0020056334   0.00059647327   0.00028606571   0.00057293120    0.0016947487    0.0044961390     0.010256594
+     0.020067515     0.033691358     0.048619538     0.060464164     0.064964150     0.060377156     0.048509774     0.033629301     0.020075421
+     0.010307479    0.0045508009    0.0017282685   0.00056478953   0.00015884366   3.8441685e-05   8.0028681e-06   1.4325369e-06   2.2041820e-07
+   2.9568873e-08   7.8127883e-09   3.9303689e-08   2.8861581e-07   1.8299054e-06   9.9418496e-06   4.6297854e-05   0.00018488031   0.00063334133
+    0.0018618700    0.0046982713     0.010179083     0.018944850     0.030326101     0.041840398     0.049885059     0.051513681     0.046120629
+     0.035784453     0.024029231     0.013945847    0.0069897304    0.0030246186    0.0011298936   0.00036431013   0.00010133559   2.4299920e-05
+   5.0192909e-06   8.9225575e-07   1.3638800e-07   1.7912160e-08   2.0196733e-09   1.9538550e-10   1.6207512e-11   1.1521974e-12   7.0151849e-14
+   3.6541195e-15   1.5732478e-16   1.0976864e-18       0.0000000       0.0000000       0.0000000
+"""
 
-refX = 23.6944955e9 # from nh3model.pro
-refX = 23.694506e9 # from modelspec.pro
+@pytest.mark.parametrize(('testspec_idl_str','tex','tkin'),
+                         ((testspec_idl_str, testspec_idl_str2),
+                          (20, 10),
+                          (20, 30))
+                        )
+def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
+    idl_test_xarr = np.array(xarr_idl_str.split(), dtype='float')
+    idl_test_spectrum = np.array(testspec_idl_str.split(), dtype='float')
 
-xarr11 = pyspeckit.units.SpectroscopicAxis(np.arange(-30,30,0.4),
-        units='km/s', refX=refX, refX_units='Hz', frame='LSRK',
-        xtype='Frequency')
+    refX = 23.6944955e9 # from nh3model.pro
+    refX = 23.694506e9 # from modelspec.pro
 
-# The two arrays are shifted in frequency because nh3model.pro converts to
-# frequency with a different reference; the reference frequency is not centered
-# on any of the individual lines
-#print np.array(xarr11.as_unit('Hz')) - idl_test_xarr
+    xarr11 = pyspeckit.units.SpectroscopicAxis(np.arange(-30,30,0.4),
+            units='km/s', refX=refX, refX_units='Hz', frame='LSRK',
+            xtype='Frequency')
 
-ps_spectrum = ammonia.ammonia(xarr11, tkin=20, tex=20, ntot=14, width=1,
-                              xoff_v=0.0, fortho=0.5, )
+    # The two arrays are shifted in frequency because nh3model.pro converts to
+    # frequency with a different reference; the reference frequency is not centered
+    # on any of the individual lines
+    #print np.array(xarr11.as_unit('Hz')) - idl_test_xarr
 
-absfracdiff = np.abs(idl_test_spectrum - ps_spectrum)/idl_test_spectrum * (idl_test_spectrum > 0)
+    ps_spectrum = ammonia.ammonia(xarr11, tkin=tkin, tex=tex, ntot=14, width=1,
+                                  xoff_v=0.0, fortho=0.5, )
 
-assert np.nanmax(absfracdiff) < 0.01
+    absfracdiff = np.abs((idl_test_spectrum - ps_spectrum)/idl_test_spectrum * (np.abs(idl_test_spectrum) > 0))
 
-plot = False
-if plot:
-    import pylab as pl
-    fig1 = pl.figure(1)
-    fig1.clf()
-    ax1 = fig1.gca()
-    ax1.plot(idl_test_xarr, idl_test_spectrum)
-    ax1.plot(xarr11.as_unit('Hz'), ps_spectrum)
+    if plot:
+        import pylab as pl
+        fig1 = pl.figure(1)
+        fig1.clf()
+        ax1 = fig1.gca()
+        ax1.plot(idl_test_xarr, idl_test_spectrum, label="IDL")
+        ax1.plot(xarr11.as_unit('Hz'), ps_spectrum, label="pyspeckit")
+        ax1.set_xlabel("Frequency (Hz)")
+        ax1.set_ylabel("Test spectra")
+        pl.legend(loc='best')
 
-    fig2 = pl.figure(2)
-    fig2.clf()
-    ax2 = fig2.gca()
-    ax2.plot(xarr11, np.abs(idl_test_spectrum - ps_spectrum)/idl_test_spectrum)
+        fig2 = pl.figure(2)
+        fig2.clf()
+        ax2 = fig2.gca()
+        ax2.plot(xarr11, np.abs(idl_test_spectrum - ps_spectrum)/idl_test_spectrum)
+        ax2.set_xlabel("Frequency (Hz)")
+        ax2.set_ylabel("(IDL-pyspeckit)/IDL")
 
-    pl.draw()
-    pl.show()
+        pl.draw()
+        pl.show()
+
+    assert np.nanmax(absfracdiff) < 0.01
+
+    return absfracdiff
