@@ -9,7 +9,6 @@ if not 'interactive' in globals():
 if not 'savedir' in globals():
     savedir = ''
 
-
 sp = pyspeckit.Spectrum('hr2421.fit')
 
 print "Does it have an axis? ",sp.plotter.axis

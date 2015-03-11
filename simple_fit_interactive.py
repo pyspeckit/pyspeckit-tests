@@ -96,7 +96,7 @@ spec.baseline.highlight_fitregion()
 print "Includemask after excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
 # total 512 pixels, 5 should be excluded inside, 107 should be available
 assert spec.baseline.includemask.sum() == 103
-spec.specfit(use_window_limits=True)
+spec.specfit.peakbgfit(use_window_limits=True)
 
 # Regression test: make sure baseline selection works
 # this should *NOT* be 107!  107 is ALL data between -100 and +20

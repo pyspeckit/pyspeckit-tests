@@ -32,8 +32,8 @@ if interactive: raw_input("Wait here a moment")
 # background level)
 #sp.baseline.order = 0
 print "FITTING GAUSSIAN"
-sp.specfit(debug=True,verbose=True)
-sp.specfit(debug=True,verbose=True) # Do this twice to get a better estimate of the noise
+sp.specfit.peakbgfit() #(debug=True,verbose=True)
+sp.specfit.peakbgfit() # Do this twice to get a better estimate of the noise  (debug=True,verbose=True)
 print "Plotter min/max: ",sp.plotter.xmin,sp.plotter.xmax," Fitter min/max: ",sp.specfit.xmin,sp.specfit.xmax," Fitregion= ",sp.baseline.button1plot," bfit target sum: ",sp.baseline.includemask.sum()
 if savedir != "":
     sp.plotter.figure.savefig(savedir+'hr2421_gaussfit.png')
@@ -48,7 +48,7 @@ if interactive: raw_input("Wait here a moment")
 
 try:
     print "FITTING VOIGT"
-    sp.specfit(fittype='voigt')
+    sp.specfit.peakbgfit(fittype='voigt')
     print "Guesses: ", sp.specfit.guesses
     print "Best fit: ", sp.specfit.modelpars
     print "EQW: ",sp.specfit.EQW()

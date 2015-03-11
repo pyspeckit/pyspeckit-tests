@@ -1,3 +1,4 @@
+from astropy import units as u
 try:
     from astropy.io import fits as pyfits
 except ImportError:
@@ -25,16 +26,17 @@ import pyspeckit
 import pylab
 
 sp = pyspeckit.Spectrum('test_freqswitch.fits')
-sp.plotter()
+# sp.plotter()
 pylab.plot(x,y,'k--',drawstyle='steps-mid')
 
 print ("First test - do the FITS version and the input match up?")
-import pdb; pdb.set_trace()
+# import pdb; pdb.set_trace()
 
-sp.xarr.frequency_to_velocity(center_frequency=105.0,center_frequency_units='MHz',velocity_units='km/s')
+# assert(sp.xarr.unit is not u.dimensionless_unscaled)
+sp.xarr = sp.xarr.as_unit('km/s', center_frequency=105.0, center_frequency_unit='MHz', velocity_convention='optical')
 
 sp.plotter(reset_xlimits=True)
 
 print ("Test two - what happens when we set the reference frequency to be 105?")
 print "The positive lines should be on the right side.  So they are.  OK."
-import pdb; pdb.set_trace()
+# import pdb; pdb.set_trace()
