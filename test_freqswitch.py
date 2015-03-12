@@ -26,13 +26,13 @@ import pyspeckit
 import pylab
 
 sp = pyspeckit.Spectrum('test_freqswitch.fits')
-# sp.plotter()
+sp.plotter()
 pylab.plot(x,y,'k--',drawstyle='steps-mid')
 
 print ("First test - do the FITS version and the input match up?")
 # import pdb; pdb.set_trace()
 
-# assert(sp.xarr.unit is not u.dimensionless_unscaled)
+assert(sp.xarr.unit is not u.dimensionless_unscaled)
 sp.xarr = sp.xarr.as_unit('km/s', center_frequency=105.0, center_frequency_unit='MHz', velocity_convention='optical')
 
 sp.plotter(reset_xlimits=True)

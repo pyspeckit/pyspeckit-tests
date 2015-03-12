@@ -140,7 +140,7 @@ fitrow(n)
 ## n=12,16
 ## fitrow(n)
 
-## sp.Registry.singlefitters
+## sp.Registry.peakbgfitters
 ## sp.Registry.multifitters
 
 
