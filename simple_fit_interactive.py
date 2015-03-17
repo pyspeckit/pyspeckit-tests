@@ -12,7 +12,7 @@ spec = pyspeckit.Spectrum('10074-190_HCOp.fits')
 # Note that this only works because the reference frequency is set in the header
 # this is no longer necessary!  #spec.xarr.frequency_to_velocity()
 # Default conversion is to m/s, but we traditionally work in km/s
-spec.xarr.convert_to_unit('km/s')
+spec.xarr = spec.xarr.as_unit('km/s')
 # plot it up!
 spec.plotter()
 # Subtract a baseline (the data is only 'mostly' reduced)
@@ -96,7 +96,7 @@ spec.baseline.highlight_fitregion()
 print "Includemask after excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
 # total 512 pixels, 5 should be excluded inside, 107 should be available
 assert spec.baseline.includemask.sum() == 103
-spec.specfit.peakbgfit(use_window_limits=True)
+spec.specfit.peakbgfit(use_window_limits=True, vheight=False)
 
 # Regression test: make sure baseline selection works
 # this should *NOT* be 107!  107 is ALL data between -100 and +20

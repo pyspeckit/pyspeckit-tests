@@ -15,7 +15,7 @@ print "How about now? ",sp.plotter.axis
 
 
 print "FITTING GAUSSIAN"
-sp.specfit.peakbgfit(quiet=False)
+sp.specfit.peakbgfit(quiet=False, vheight=False)
 sp.specfit.annotate(loc='lower right')
 sp.plotter.figure.savefig(savedir+'txt_gaussfit.png')
 print "Guesses: ", sp.specfit.guesses
@@ -40,7 +40,7 @@ print sp.baseline.basespec
 if interactive: raw_input("Wait here a moment")
 
 print "REFITTING GAUSSIAN"
-sp.specfit.peakbgfit(quiet=False)
+sp.specfit.peakbgfit(quiet=False, vheight=False)
 sp.specfit.annotate(loc='lower right')
 print "Guesses: ", sp.specfit.guesses
 print "Best fit: ", sp.specfit.modelpars

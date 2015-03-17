@@ -16,7 +16,7 @@ print "How about now? ",sp.plotter.axis
 # (if you don't do this, the best fit to the spectrum is dominated by the
 # background level)
 sp.baseline.order = 0
-sp.specfit.peakbgfit()
+sp.specfit.peakbgfit(vheight=False)
 if savedir != "":
     sp.plotter.figure.savefig(savedir+'fits_gaussfit.png')
 print "Guesses: ", sp.specfit.guesses
