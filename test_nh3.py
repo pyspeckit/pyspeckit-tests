@@ -1,4 +1,5 @@
 import pyspeckit
+from astropy import log
 
 if not 'interactive' in globals():
     interactive=False
