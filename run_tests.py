@@ -55,6 +55,7 @@ def test_everything(savedir=''):
 
     print "*****test_nh3.py (run last because it is long)*****"
     execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
+    # too slow execfile(os.path.join(dir_prefix,'test_nh3_multi.py'),{'interactive':interactive,'savedir':savedir})
 
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
