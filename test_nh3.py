@@ -56,7 +56,8 @@ try:
     sp.specfit(fittype='ammonia',
                guesses=[4,3.5,14.69,0.68,97.3,0.5]+[15,4.2,14.85,0.52,95.8,0.5]
             ,fixed=[False,False,False,False,False,True]*2,quiet=False,use_lmfit=True,debug=True)
-except ImportError:
+except ImportError as ex:
+    log.warn("Could not import lmfit: {0}".format(ex))
     sp.specfit(fittype='ammonia',
                guesses=[4,3.5,14.69,0.68,97.3,0.5]+[15,4.2,14.85,0.52,95.8,0.5]
             ,fixed=[False,False,False,False,False,True]*2,quiet=False,use_lmfit=False,debug=True)
@@ -74,7 +75,8 @@ if anothertry:
         sp.specfit(fittype='ammonia',
                    guesses=[4,3.5,14.69,0.68,97.3,0.0]+[15,4.2,14.85,0.52,95.8,0.0]
                 ,fixed=[False,False,False,False,False,True]*2,quiet=False,use_lmfit=True)
-    except ImportError:
+    except ImportError as ex:
+        log.warn("Could not import lmfit: {0}".format(ex))
         sp.specfit(fittype='ammonia',
                    guesses=[4,3.5,14.69,0.68,97.3,0.0]+[15,4.2,14.85,0.52,95.8,0.0]
                 ,fixed=[False,False,False,False,False,True]*2,quiet=False,use_lmfit=False)

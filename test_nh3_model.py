@@ -123,7 +123,7 @@ testspec_figura_str = """
                           (20, 10),
                           (20, 30))
                         )
-def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
+def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False, background_tb=2.73):
     idl_test_xarr = np.array(xarr_idl_str.split(), dtype='float')
     idl_test_spectrum = np.array(testspec_idl_str.split(), dtype='float')
 
@@ -140,7 +140,7 @@ def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
     #print np.array(xarr11.as_unit('Hz')) - idl_test_xarr
 
     ps_spectrum = ammonia.ammonia(xarr11, tkin=tkin, tex=tex, ntot=14, width=1,
-                                  xoff_v=0.0, fortho=0.5, )
+                                  xoff_v=0.0, fortho=0.5, background_tb=background_tb)
 
     absfracdiff = np.abs((idl_test_spectrum - ps_spectrum)/idl_test_spectrum * (np.abs(idl_test_spectrum) > 0))
 
@@ -168,3 +168,7 @@ def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
     assert np.nanmax(absfracdiff) < 0.01
 
     return absfracdiff
+
+if __name__ == "__main__":
+    test_eriks_idl(testspec_idl_str=testspec_idl_str,  tex=20, tkin=10)
+    test_eriks_idl(testspec_idl_str=testspec_idl_str2, tex=20, tkin=30)
