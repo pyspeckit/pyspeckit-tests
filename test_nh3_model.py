@@ -170,5 +170,5 @@ def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False, background_tb=2.73):
     return absfracdiff
 
 if __name__ == "__main__":
-    test_eriks_idl(testspec_idl_str=testspec_idl_str,  tex=20, tkin=10)
-    test_eriks_idl(testspec_idl_str=testspec_idl_str2, tex=20, tkin=30)
+    test_eriks_idl(testspec_idl_str=testspec_idl_str,  tex=20, tkin=20)
+    test_eriks_idl(testspec_idl_str=testspec_idl_str2, tex=10, tkin=30)
