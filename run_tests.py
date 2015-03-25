@@ -51,6 +51,8 @@ def test_everything(savedir=''):
     print "*****test_juliantxt.py*****"
     execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
 
+    execfile(os.path.join(dir_prefix,'test_nh3_model.py'))
+
     print "*****test_nh3.py (run last because it is long)*****"
     execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
 
