@@ -26,8 +26,6 @@ def test_everything(savedir=''):
     execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
     print "*****test_hr2421.py*****"
     execfile(os.path.join(dir_prefix,'test_hr2421.py'),{'interactive':interactive,'savedir':savedir})
-    #print "*****test_nh3.py*****"
-    #execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
     print "*****test_sdss.py*****"
     execfile(os.path.join(dir_prefix,'test_sdss.py'),{'interactive':interactive,'savedir':savedir})
     print "*****test_txt.py*****"
@@ -52,6 +50,9 @@ def test_everything(savedir=''):
 
     print "*****test_juliantxt.py*****"
     execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
+
+    print "*****test_nh3.py (run last because it is long)*****"
+    execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
 
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
