@@ -9,7 +9,10 @@ passes = {'passes': [0,0,0], 'avg_difference': [0,0,0]}
 fails = {'fails': [0,0,0], 'avg_difference': [0, 0, 0]}
 
 for i in range(100):
-	parameter_noise = [abs(params[0]+np.random.randn()) / 5., abs(params[1] + np.random.randn())*5, abs(params[2] + np.random.randn())]
+	parameter_error_amplitude = [1/5., 5., 1.]
+	parameter_noise = [params[0]*+ abs(np.random.randn()) * parameter_error_amplitude[0], 
+                       params[1] + abs(np.random.randn()) * parameter_error_amplitude[1],
+                       params[2] + abs(np.random.randn()) * parameter_error_amplitude[2]]
 	guesses = np.array(params)+parameter_noise
 
 	sp = Spectrum(xarr=xarr, data=gf.n_modelfunc(pars=params)(xarr))
@@ -27,9 +30,10 @@ for i in range(100):
 		passes['avg_difference'][j] += abs(result - params[j])
 
 for i,j in enumerate(passes['avg_difference']):
-	passes['avg_difference'][i] = j/passes['passes'][i]
+	if passes['passes'][i]:
+		passes['avg_difference'][i] = j/passes['passes'][i]
 for i,j in enumerate(fails['avg_difference']):
-	fails['avg_difference'][i] = j/fails['fails'][i]
+	if fails['fails'][i]:
 
 print 'passes:', passes
 print 'fails:', fails
