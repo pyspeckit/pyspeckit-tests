@@ -99,6 +99,9 @@ def test_everything(savedir=''):
     print "*****ammonia_fit_example.py*****"
     execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
 
+    print "*****test_spectral_cube.py*****"
+    execfile(os.path.join(dir_prefix,'test_spectral_cube.py'))
+
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
 
