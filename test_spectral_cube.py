@@ -29,3 +29,6 @@ def test_load_cube_from_spectralcube():
     assert pcube.xarr.unit == 'km/s'
 
     return pcube
+
+if __name__ == "__main__":
+    test_load_cube_from_spectralcube()
