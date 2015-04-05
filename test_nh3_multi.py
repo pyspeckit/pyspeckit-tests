@@ -20,7 +20,8 @@ sp2 = pyspeckit.Spectrum('G032.751-00.071_nh3_22_Tastar.fits')
 sp2.crop(0,80)
 sp2.smooth(4)
 sp2.plotter()
-sp2.specfit()
+guesses = sp2.specfit.moments(fittype='gaussian')[1:]
+sp2.specfit(fittype='gaussian', guesses=guesses)
 sp2.baseline(exclude=[34,42])
 sp2.plotter()
 sp2.plotter.savefig(savedir+'nh3_22_baselined.png')
@@ -28,7 +29,8 @@ sp3 = pyspeckit.Spectrum('G032.751-00.071_nh3_33_Tastar.fits')
 sp3.crop(0,80)
 sp3.smooth(4)
 sp3.plotter()
-sp3.specfit()
+guesses = sp3.specfit.moments(fittype='gaussian')[1:]
+sp3.specfit(fittype='gaussian', guesses=guesses)
 sp3.baseline(exclude=[30,42])
 sp3.plotter()
 sp3.plotter.savefig(savedir+'nh3_33_baselined.png')
@@ -51,7 +53,8 @@ published_model = pyspeckit.models.ammonia.ammonia(sp1.xarr,tkin=21.57,tex=0.24+
 # (if you don't do this, the best fit to the spectrum is dominated by the
 # background level)
 sp.baseline.order = 0
-sp.specfit()
+guesses = sp3.specfit.moments(fittype='gaussian')[1:]
+sp.specfit(fittype='gaussian', guesses=guesses)
 sp.plotter.figure.savefig(savedir+'nh3_gaussfit.png')
 print "Guesses: ", sp.specfit.guesses
 print "Best fit: ", sp.specfit.modelpars
@@ -60,11 +63,11 @@ print "Best fit: ", sp.specfit.modelpars
 #print "Plotter min/max: ",sp.plotter.xmin,sp.plotter.xmax," Fitter min/max: ",sp.specfit.gx1,sp.specfit.gx2," Fitregion= ",sp.baseline.excludevelo,sp.baseline.excludepix
 #if interactive: raw_input('Baseline')
 #sp.specfit(fittype='ammonia',multifit=True,guesses=[20,20,1e16,1.0,-55.0,0.5],quiet=False,xunits='Hz')
-sp.specfit(fittype='ammonia', multifit=True, guesses=[21.57, 5.0, 14.469, 1.11,
-    37.8, 0.5], fixed=[False,False,False,False,False,True],
-    minpars=[2.73,2.73,10,0.1,0,0],
-    limitedmin=[True,True,True,True,False,True], quiet=False,
-    )
+sp.specfit(fittype='ammonia', guesses=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5],
+           fixed=[False,False,False,False,False,True],
+           minpars=[2.73,2.73,10,0.1,0,0],
+           limitedmin=[True,True,True,True,False,True], quiet=False,
+          )
 sp.specfit.plotresiduals()
 sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit.png')
 print "Guesses: ", sp.specfit.guesses
