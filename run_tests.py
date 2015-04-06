@@ -56,6 +56,9 @@ def test_everything(savedir=''):
     print "*****test_spectral_cube.py*****"
     execfile(os.path.join(dir_prefix,'test_spectral_cube.py'))
 
+    print "*****test_nh3_loading_regression.py*****"
+    execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
+
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
 
