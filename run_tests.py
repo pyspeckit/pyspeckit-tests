@@ -19,8 +19,11 @@ def test_everything(savedir=''):
         tu.test_convert_back(*p)
 
     curpath = os.getcwd()
+
     dir_prefix = os.path.split(os.path.abspath(__file__))[0]
+
     os.chdir(dir_prefix)
+    example_prefix = '/../../examples/'
 
     print "*****test_fits.py*****"
     execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
@@ -53,6 +56,9 @@ def test_everything(savedir=''):
     print "*****test_juliantxt.py*****"
     execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
 
+    print "*****ammonia_fit_example.py*****"
+    dir_prefix += example_prefix
+    execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
 
