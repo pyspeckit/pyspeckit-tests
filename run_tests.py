@@ -73,28 +73,28 @@ def test_everything(savedir=''):
     
     #WORKING EXAMPLES
     #runs 630 fits; left it out
-    # print "*****n2hp_cube_example.py*****"
-    # execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
-    # print "*****hcn_cube_test.py*****"
-    # execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
-    # print "*****voigt.py*****"
-    # execfile(os.path.join(dir_prefix,'voigt.py'))
-    # print "*****sn_example.py*****"
-    # execfile(os.path.join(dir_prefix,'sn_example.py'))
-    # print "*****sn_deredden_example.py*****"
-    # execfile(os.path.join(dir_prefix,'sn_deredden_example.py'))
-    # print "*****n2hp_example.py*****"
-    # execfile(os.path.join(dir_prefix,'n2hp_example.py'))
-    # print "*****hcn_example.py*****"
-    # execfile(os.path.join(dir_prefix,'hcn_example.py'))
-    # print "*****doublet_example.py*****"
-    # execfile(os.path.join(dir_prefix,'doublet_example.py'))
-    print "*****agn_example.py*****"
-    execfile(os.path.join(dir_prefix,'agn_example.py'))
-    # print "*****ammonia_vtau_fit_example.py*****"
-    # execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
-    # print "*****ammonia_fit_example.py*****"
-    # execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
+    print "*****n2hp_cube_example.py*****"
+    execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
+    print "*****hcn_cube_test.py*****"
+    execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
+    print "*****voigt.py*****"
+    execfile(os.path.join(dir_prefix,'voigt.py'))
+    print "*****sn_example.py*****"
+    execfile(os.path.join(dir_prefix,'sn_example.py'))
+    print "*****sn_deredden_example.py*****"
+    execfile(os.path.join(dir_prefix,'sn_deredden_example.py'))
+    print "*****n2hp_example.py*****"
+    execfile(os.path.join(dir_prefix,'n2hp_example.py'))
+    print "*****hcn_example.py*****"
+    execfile(os.path.join(dir_prefix,'hcn_example.py'))
+    print "*****doublet_example.py*****"
+    execfile(os.path.join(dir_prefix,'doublet_example.py'))
+    # print "*****agn_example.py*****"
+    # execfile(os.path.join(dir_prefix,'agn_example.py'))
+    print "*****ammonia_vtau_fit_example.py*****"
+    execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
+    print "*****ammonia_fit_example.py*****"
+    execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
 
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
