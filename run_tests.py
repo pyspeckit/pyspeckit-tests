@@ -25,36 +25,36 @@ def test_everything(savedir=''):
     os.chdir(dir_prefix)
     example_prefix = '/../../examples/'
 
-    print "*****test_fits.py*****"
-    execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****test_hr2421.py*****"
-    execfile(os.path.join(dir_prefix,'test_hr2421.py'),{'interactive':interactive,'savedir':savedir})
-    #print "*****test_nh3.py*****"
-    #execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****test_sdss.py*****"
-    execfile(os.path.join(dir_prefix,'test_sdss.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****test_txt.py*****"
-    execfile(os.path.join(dir_prefix,'test_txt.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****simple_fit_example.py*****"
-    execfile(os.path.join(dir_prefix,'simple_fit_example.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****simple_fit_interactive.py*****"
-    execfile(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****alberto_example.py*****"
-    execfile(os.path.join(dir_prefix,'alberto_example.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_fits.py*****"
+    # execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_hr2421.py*****"
+    # execfile(os.path.join(dir_prefix,'test_hr2421.py'),{'interactive':interactive,'savedir':savedir})
+    # #print "*****test_nh3.py*****"
+    # #execfile(os.path.join(dir_prefix,'test_nh3.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_sdss.py*****"
+    # execfile(os.path.join(dir_prefix,'test_sdss.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_txt.py*****"
+    # execfile(os.path.join(dir_prefix,'test_txt.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****simple_fit_example.py*****"
+    # execfile(os.path.join(dir_prefix,'simple_fit_example.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****simple_fit_interactive.py*****"
+    # execfile(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****alberto_example.py*****"
+    # execfile(os.path.join(dir_prefix,'alberto_example.py'),{'interactive':interactive,'savedir':savedir})
 
-    print "*****test_formaldehyde_radex.py*****"
-    execfile(os.path.join(dir_prefix,'test_formaldehyde_radex.py'),{'interactive':interactive,'savedir':savedir})
-    print "*****test_formaldehyde.py*****"
-    execfile(os.path.join(dir_prefix,'test_formaldehyde.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_formaldehyde_radex.py*****"
+    # execfile(os.path.join(dir_prefix,'test_formaldehyde_radex.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****test_formaldehyde.py*****"
+    # execfile(os.path.join(dir_prefix,'test_formaldehyde.py'),{'interactive':interactive,'savedir':savedir})
 
-    print "*****vega_echelle.py*****"
-    execfile(os.path.join(dir_prefix,'vega_echelle_example.py'),{'interactive':interactive,'savedir':savedir})
+    # print "*****vega_echelle.py*****"
+    # execfile(os.path.join(dir_prefix,'vega_echelle_example.py'),{'interactive':interactive,'savedir':savedir})
 
-    print "*****test_voigt.py*****"
-    execfile(os.path.join(dir_prefix,'test_voigt.py'))
+    # print "*****test_voigt.py*****"
+    # execfile(os.path.join(dir_prefix,'test_voigt.py'))
 
-    print "*****test_juliantxt.py*****"
-    execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
+    # print "*****test_juliantxt.py*****"
+    # execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
 
     print "*****Testing Examples*****"
     dir_prefix += example_prefix
@@ -83,10 +83,10 @@ def test_everything(savedir=''):
     # print "*****n2hp_cube_example.py*****"
     # execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
 
-    print "*****voigt.py*****"
-    execfile(os.path.join(dir_prefix,'voigt.py'))
-    print "*****sn_example.py*****"
-    execfile(os.path.join(dir_prefix,'sn_example.py'))
+    # print "*****voigt.py*****"
+    # execfile(os.path.join(dir_prefix,'voigt.py'))
+    # print "*****sn_example.py*****"
+    # execfile(os.path.join(dir_prefix,'sn_example.py'))
     print "*****sn_deredden_example.py*****"
     execfile(os.path.join(dir_prefix,'sn_deredden_example.py'))
     print "*****n2hp_example.py*****"
