@@ -2,8 +2,8 @@ import pyspeckit
 from astropy import units as u
 sp = pyspeckit.Spectrum('G203.04+1.76_h2co.fits',wcstype='D')
 sp.xarr.center_frequency._unit = u.Hz
+sp.xarr = sp.xarr.as_unit('km/s', equivalencies=u.doppler_radio(sp.xarr.center_frequency))
 sp.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.6,4,0.2],equivalencies=u.doppler_optical(sp.xarr.center_frequency))
-sp.xarr = sp.xarr.as_unit('km/s')
 sp.plotter(figure=2)
 sp.crop(-5,15)
 sp.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.6,4,0.2])
