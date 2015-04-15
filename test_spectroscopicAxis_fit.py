@@ -7,17 +7,16 @@ import pytest
 strict_assertion = True
 xarr = np.linspace(-100,100,200)
 gf = gaussian_fitter()
-# params = [1.0, 2.0, 20.]
+params = [np.random.rand()+1, np.random.rand()+2, np.random.rand()+20]
 parameter_error_amplitude = [5., 5., 5.]
 passes = {'passes': [0,0,0], 'avg_difference': [0,0,0]}
 fails = {'fails': [0,0,0], 'avg_difference': [0, 0, 0]}
 
-@pytest.mark.parametrize(('rawdata', 'noise', 'error', 'params'), 
+@pytest.mark.parametrize(('rawdata', 'noise', 'error'), 
 						[(gf.n_modelfunc(pars=params)(xarr), 
 						  np.random.randn(xarr.size)/100., 
-						  np.ones(xarr.size)/100.,
-						  [np.random.rand()+1, np.random.rand()+2, np.random.rand()+20])])
-def test_specfit(rawdata, noise, error, params):
+						  np.ones(xarr.size)/100.)])
+def test_specfit(rawdata, noise, error):
 	for i in range(100):
 		passed = True
 		parameter_noise = [params[0] + abs(np.random.randn()) * parameter_error_amplitude[0], 
@@ -54,3 +53,4 @@ def test_specfit(rawdata, noise, error, params):
 
 	print 'passes:', passes
 	print 'fails:', fails
+
