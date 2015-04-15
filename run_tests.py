@@ -77,6 +77,7 @@ def test_everything(savedir=''):
     #runs 630 fits; left it out
     # print "*****n2hp_cube_example.py*****"
     # execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
+    #this should have an equivalency to convert between m/s and Hz [refX is none but refX_unit is Hz which is suspicious]
     # print "*****hcn_cube_test.py*****"
     # execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
     print "*****voigt.py*****"
@@ -91,8 +92,8 @@ def test_everything(savedir=''):
     execfile(os.path.join(dir_prefix,'hcn_example.py'))
     print "*****doublet_example.py*****"
     execfile(os.path.join(dir_prefix,'doublet_example.py'))
-    # print "*****agn_example.py*****"
-    # execfile(os.path.join(dir_prefix,'agn_example.py'))
+    print "*****agn_example.py*****"
+    execfile(os.path.join(dir_prefix,'agn_example.py'))
     print "*****ammonia_vtau_fit_example.py*****"
     execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print "*****ammonia_fit_example.py*****"
