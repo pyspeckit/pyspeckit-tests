@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 parameter_error_amplitude = [5., 5., 5., 5., 5., 5.]
-params = [5.9,4.45,8.3e14,0.84,96.2,0.43]
+params = [2.3,2,0.,0.84,0.2,0.43]
 
 sp = Spectrum('G031.947+00.076_nh3_11_Tastar.fits')
 xarr = SpectroscopicAxis(np.linspace(-250, 385, 8192), refX=23694500000.0*u.Hz)
@@ -26,6 +26,7 @@ parameter_noise = [params[0] + abs(np.random.randn()/1000.) * parameter_error_am
 guesses = np.array(params)+parameter_noise
 # producing the fake data using the sample file
 # the above defined xarr produces an array of zeroes (and a nan around the middle)
+print "Using parameters:", params
 rawdata = ammonia.ammonia_model().n_modelfunc(pars=params)(sp.xarr)
 noise = np.ones(xarr.size)/100.
 sp = Spectrum(xarr=xarr, data=rawdata)#+noise)
@@ -33,7 +34,7 @@ sp = Spectrum(xarr=xarr, data=rawdata)#+noise)
 # where the ymin.value is accessed but ymin is a float
 #TODO : needs checking.
 # sp.plotter()
-sp.specfit(fittype='ammonia', guesses=guesses)
+sp.specfit(fittype='ammonia', guesses=guesses, fixed=[False, False, False, False, True, True])
 assertion = ((np.array(sp.specfit.fitter.mpp)-np.array(params)))**2
 print '(mpp - params / param_noise )^2 = ', assertion
 # plt.show()
