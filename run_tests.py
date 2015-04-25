@@ -27,6 +27,10 @@ def test_everything(savedir=''):
 
     run_only_examples = False
     if not run_only_examples:
+
+        print "*****test_nh3_loading_regression.py*****"
+        execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
+
         print "*****test_fits.py*****"
         execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
         print "*****test_hr2421.py*****"
@@ -97,9 +101,6 @@ def test_everything(savedir=''):
     execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print "*****ammonia_fit_example.py*****"
     execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
-
-    print "*****test_nh3_loading_regression.py*****"
-    execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
 
     print "*****test_spectral_cube.py*****"
     execfile(os.path.join(dir_prefix,'test_spectral_cube.py'))
