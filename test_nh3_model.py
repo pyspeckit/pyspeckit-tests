@@ -131,7 +131,7 @@ def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
     refX = 23.694506e9 # from modelspec.pro
 
     xarr11 = pyspeckit.units.SpectroscopicAxis(np.arange(-30,30,0.4),
-            units='km/s', refX=refX, refX_units='Hz', frame='LSRK',
+            units='km/s', refX=refX, refX_unit='Hz', frame='LSRK',
             xtype='Frequency')
 
     # The two arrays are shifted in frequency because nh3model.pro converts to

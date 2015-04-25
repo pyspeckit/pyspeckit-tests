@@ -16,7 +16,7 @@ sp.data *= 1e15
 sp.error[:] = 1 # just a guess...
 
 # set up units properly
-sp.xarr.units='angstroms'
+sp.xarr.unit='angstroms'
 sp.xarr.xtype = 'wavelength'
 sp.units = r'$1\times10^{-15}$ erg s$^{-1}$ cm$^{-2}$ $\AA^{-1}$'
 

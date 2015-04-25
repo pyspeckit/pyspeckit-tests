@@ -27,11 +27,11 @@ print "Fitted FWHM: ", fitted_fwhm
 
 measured_fwhm2 = sp.specfit.measure_approximate_fwhm(interpolate_factor=10)
 print "Measured FWHM (x10 accuracy): ", measured_fwhm2
-assert np.abs(measured_fwhm2-fitted_fwhm) < 200 # interpolating makes smaller fwhm in this case
+assert np.abs(measured_fwhm2.value-fitted_fwhm) < 200 # interpolating makes smaller fwhm in this case
 
 measured_fwhm = sp.specfit.measure_approximate_fwhm()
 print "Measured FWHM: ", measured_fwhm
-assert np.abs(measured_fwhm-fitted_fwhm) < 50 # i.e., close enough...
+assert np.abs(measured_fwhm.value-fitted_fwhm) < 50 # i.e., close enough...
 
 # # Fit a baseline, excluding the velocities with data, and don't subtract it
 sp.baseline(exclude=[12000,98000],subtract=False)

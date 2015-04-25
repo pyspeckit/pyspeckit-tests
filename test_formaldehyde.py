@@ -1,8 +1,9 @@
-
 import pyspeckit
+from astropy import units as u
 sp = pyspeckit.Spectrum('G203.04+1.76_h2co.fits',wcstype='D')
-sp.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.6,4,0.2])
-sp.xarr.convert_to_unit('km/s')
+sp.xarr.center_frequency._unit = u.Hz
+sp.xarr = sp.xarr.as_unit('km/s', equivalencies=u.doppler_radio(sp.xarr.center_frequency))
+sp.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.6,4,0.2],equivalencies=u.doppler_optical(sp.xarr.center_frequency))
 sp.plotter(figure=2)
 sp.crop(-5,15)
 sp.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.6,4,0.2])
@@ -33,8 +34,10 @@ sp22g.specfit.peakbgfit(negamp=True, vheight=False)
 sp22g.specfit.plot_fit()
 sp22g.plotter.savefig("h2co_22_gaussfit.png")
 
+
 sp22 = pyspeckit.Spectrum('G203.04+1.76_h2co_Tastar.fits',wcstype='V')
-sp22.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.3,4,0.2])
+sp22.xarr.center_frequency._unit = u.Hz
+sp22.specfit(fittype='formaldehyde',multifit=True,usemoments=True,guesses=[-0.3,4,0.2],equivalencies=u.doppler_radio(sp22.xarr.center_frequency))
 sp22.xarr.convert_to_unit('km/s')
 sp22.plotter(figure=4)
 sp22.crop(-5,15)

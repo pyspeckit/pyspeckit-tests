@@ -1,4 +1,5 @@
 import pyspeckit
+from astropy import units as u
 
 if not 'interactive' in globals():
     interactive=False
@@ -12,7 +13,7 @@ spec = pyspeckit.Spectrum('10074-190_HCOp.fits')
 # Note that this only works because the reference frequency is set in the header
 # this is no longer necessary!  #spec.xarr.frequency_to_velocity()
 # Default conversion is to m/s, but we traditionally work in km/s
-spec.xarr.convert_to_unit('km/s')
+spec.xarr = spec.xarr.as_unit('km/s', equivalencies=u.doppler_radio(spec.xarr.center_frequency))
 # plot it up!
 spec.plotter()
 
