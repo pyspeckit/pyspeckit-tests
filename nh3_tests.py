@@ -19,11 +19,11 @@ except ImportError:
         yield x
 
 xarr11 = pyspeckit.units.SpectroscopicAxis(np.arange(-30,30,0.4),
-        unit='km/s', refX=23.694496, refX_unit='GHz', frame='LSRK',
+        units='km/s', refX=23.694496, refX_units='GHz', frame='LSRK',
         xtype='Frequency')
 
 xarr22 = pyspeckit.units.SpectroscopicAxis(np.arange(-30,30,0.4),
-        unit='km/s', refX=23.722633335, refX_unit='GHz', frame='LSRK',
+        units='km/s', refX=23.722633335, refX_units='GHz', frame='LSRK',
         xtype='Frequency')
 
 xarr = pyspeckit.units.SpectroscopicAxes([xarr11.as_unit('GHz'),xarr22.as_unit('GHz')])

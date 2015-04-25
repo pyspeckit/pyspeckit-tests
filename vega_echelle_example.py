@@ -14,7 +14,7 @@ for spec in speclist:
     spec.units="Counts"
 
 SP = pyspeckit.Spectra(speclist)
-SPa = pyspeckit.Spectra(speclist,xunits='angstrom',quiet=False)
+SPa = pyspeckit.Spectra(speclist,xunits='angstroms',quiet=False)
 
 SP.plotter(figure=figure(1))
 SPa.plotter(figure=figure(2))

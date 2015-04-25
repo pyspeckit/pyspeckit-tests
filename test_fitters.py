@@ -10,7 +10,7 @@ def get_spectrum(offset=25.0, width=2.7, amplitude=3.0, noise=0.0, xlen=101):
     sample_data = amplitude * np.exp(-(sample_xarr - offset)**2/(2*width**2)) + np.random.randn(xlen)*noise
 
     sp = pyspeckit.Spectrum(data=sample_data, xarr=sample_xarr,
-            xarr_kwargs={'units':'km/s', 'refX':3e6, 'refX_unit':'MHz'})
+            xarr_kwargs={'units':'km/s', 'refX':3e6, 'refX_units':'MHz'})
 
     return sp
 
