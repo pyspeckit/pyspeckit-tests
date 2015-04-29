@@ -27,6 +27,10 @@ def test_everything(savedir=''):
 
     run_only_examples = False
     if not run_only_examples:
+
+        print "*****test_nh3_loading_regression.py*****"
+        execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
+
         print "*****test_fits.py*****"
         execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
         print "*****test_hr2421.py*****"
@@ -58,7 +62,13 @@ def test_everything(savedir=''):
         print "*****test_juliantxt.py*****"
         execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
 
-    print "*****Testing Examples*****"
+        print "*****test_spectral_cube.py*****"
+        execfile(os.path.join(dir_prefix,'test_spectral_cube.py'))
+
+        print "*****test_moments.py*****"
+        execfile(os.path.join(dir_prefix,'test_moments.py'))
+
+    print "#####Testing Examples#####"
     dir_prefix += example_prefix
         
     #NOT WORKING EXAMPLES

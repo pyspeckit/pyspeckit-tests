@@ -11,10 +11,10 @@ if not 'savedir' in globals():
 speclist = pyspeckit.wrappers.load_IRAF_multispec('evega.0039.rs.ec.dispcor.fits')
 
 for spec in speclist:
-    spec.units="Counts"
+    spec.unit="Counts"
 
 SP = pyspeckit.Spectra(speclist)
-SPa = pyspeckit.Spectra(speclist,xunits='angstrom',quiet=False)
+SPa = pyspeckit.Spectra(speclist,xunit='angstrom',quiet=False)
 
 SP.plotter(figure=figure(1))
 SPa.plotter(figure=figure(2))
