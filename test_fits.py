@@ -10,6 +10,7 @@ sp = pyspeckit.Spectrum('sample_13CO.fits')
 print "Does it have an axis? ",sp.plotter.axis
 sp.plotter()
 print "How about now? ",sp.plotter.axis
+assert sp.plotter.xlabel == 'Velocity (m / s)'
 
 
 # set the baseline to zero to prevent variable-height fitting
