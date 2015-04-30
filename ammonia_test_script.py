@@ -11,29 +11,61 @@ from astropy import units as u
 import numpy as np
 import matplotlib.pyplot as plt
 
-parameter_error_amplitude = [5., 5., 5., 5., 5., 5.]
-params = [5.9,4.45,8.3e14,0.84,96.2,0.43]
+passes = []
+fails = []
+passdiff = []
+faildiff = []
+results = {'pass': passes, 'pass difference': passdiff,
+           'fail': fails, 'fail difference': faildiff}
 
-sp = Spectrum('G031.947+00.076_nh3_11_Tastar.fits')
-xarr = SpectroscopicAxis(np.linspace(-250, 385, 8192), refX=23694500000.0*u.Hz)
-# adding very very tiny noise
-parameter_noise = [params[0] + abs(np.random.randn()/1000.) * parameter_error_amplitude[0], 
-                   params[1] + abs(np.random.randn()/1000.) * parameter_error_amplitude[1],
-                   params[2] + abs(np.random.randn()/1000.) * parameter_error_amplitude[2],
-                   params[3] + abs(np.random.randn()/1000.) * parameter_error_amplitude[3],
-                   params[4] + abs(np.random.randn()/1000.) * parameter_error_amplitude[4],
-                   params[5] + abs(np.random.randn()/1000.) * parameter_error_amplitude[5]]
-guesses = np.array(params)+parameter_noise
-# producing the fake data using the sample file
-# the above defined xarr produces an array of zeroes (and a nan around the middle)
-rawdata = ammonia.ammonia_model().n_modelfunc(pars=params)(sp.xarr)
-noise = np.ones(xarr.size)/100.
-sp = Spectrum(xarr=xarr, data=rawdata)#+noise)
-# the next line raises an exception in plotters.py:370
-# where the ymin.value is accessed but ymin is a float
-#TODO : needs checking.
-# sp.plotter()
-sp.specfit(fittype='ammonia', guesses=guesses)
-assertion = ((np.array(sp.specfit.fitter.mpp)-np.array(params)))**2
-print '(mpp - params / param_noise )^2 = ', assertion
-# plt.show()
+def generate_guesses(starting_params, parameter_error_amplitude):
+    guesses = [starting_params[0] + (np.random.randn() * parameter_error_amplitude[0]), 
+               starting_params[1] + (np.random.randn() * parameter_error_amplitude[1]),
+               starting_params[2] + (np.random.randn() * parameter_error_amplitude[2]),
+               starting_params[3] + (np.random.randn() * parameter_error_amplitude[3]),
+               starting_params[4] + (np.random.randn() * parameter_error_amplitude[4]),
+               (np.random.randn() * parameter_error_amplitude[5])]
+    return guesses    
+
+parameter_error_amplitude = [0.2, 0.5, 1e2, 1., 1., 1.]
+starting_params = [3.73,4.73,8.3e14,0.84,96.2,0.43]
+for i in range(1):
+    xarr = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=23694500000.0*u.Hz, velocity_convention='radio')
+    guesses = generate_guesses(starting_params, parameter_error_amplitude)
+    while guesses[0] < 2.73 or guesses[1] < 2.73 or guesses[5] > 1 or guesses[5] < 0:
+        guesses = generate_guesses(starting_params, parameter_error_amplitude)
+
+    # producing the fake data using the sample file
+    # the above defined xarr produces an array of zeroes (and a nan around the middle)
+    # try:
+    rawdata = ammonia.ammonia_model().n_modelfunc(pars=starting_params)(xarr)
+    # noise = np.ones(xarr.size)/100.
+    # rawdata_guesses = ammonia.ammonia_model().n_modelfunc(pars=guesses)(sp.xarr)
+    sp = Spectrum(xarr=xarr, data=rawdata)
+    # plt.ion()
+    # sp.plotter(axis=plt.gca())
+    # plt.show()
+    try:
+        sp.specfit(fittype='ammonia', guesses=guesses)
+    except:
+        print "skipping ",guesses
+        continue
+    assertion = ((np.array(sp.specfit.fitter.mpp)-np.array(starting_params)))**2
+    difference = abs(np.array(starting_params) - np.array(guesses))
+    lessthan2 = True
+    print '(mpp - params / param_noise )^2 = ', assertion
+    for par in assertion:
+        if par > 2:
+            lessthan2 = False
+    
+    if lessthan2:
+        results['pass'].append(assertion)
+        results['pass difference'].append(difference)
+    else:
+        results['fail'].append(assertion)
+        results['fail difference'].append(difference)
+
+for key in results:
+    print key
+    print results[key]
+
