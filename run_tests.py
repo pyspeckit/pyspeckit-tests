@@ -107,6 +107,8 @@ def test_everything(savedir=''):
     execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print "*****ammonia_fit_example.py*****"
     execfile(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
+    print "*****ammonia_vtau_multitem_example.py*****"
+    execfile(os.path.join(dir_prefix,'ammonia_vtau_multitem_example.py'))
 
     print "Success!  Or at least, no exceptions..."
     os.chdir(curpath)
