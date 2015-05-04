@@ -68,6 +68,12 @@ def test_everything(savedir=''):
         print "*****test_moments.py*****"
         execfile(os.path.join(dir_prefix,'test_moments.py'))
 
+        print "*****ammonia_test_script.py*****"
+        execfile(os.path.join(dir_prefix,'ammonia_test_script.py'))
+
+        print "*****test_SpecAxis_repr.py*****"
+        execfile(os.path.join(dir_prefix,'test_SpecAxis_repr.py'))
+
     print "#####Testing Examples#####"
     dir_prefix += example_prefix
         
