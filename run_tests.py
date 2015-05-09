@@ -68,6 +68,9 @@ def test_everything(savedir=''):
         print "*****test_moments.py*****"
         execfile(os.path.join(dir_prefix,'test_moments.py'))
 
+        print "*****test_masking.py*****"
+        execfile(os.path.join(dir_prefix,'test_masking.py'))
+
     print "#####Testing Examples#####"
     dir_prefix += example_prefix
         
