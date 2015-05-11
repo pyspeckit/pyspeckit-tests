@@ -30,7 +30,6 @@ def test_everything(savedir=''):
 
         print "*****test_nh3_loading_regression.py*****"
         execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
-
         print "*****test_fits.py*****"
         execfile(os.path.join(dir_prefix,'test_fits.py'),{'interactive':interactive,'savedir':savedir})
         print "*****test_hr2421.py*****"
@@ -47,26 +46,24 @@ def test_everything(savedir=''):
         execfile(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
         print "*****alberto_example.py*****"
         execfile(os.path.join(dir_prefix,'alberto_example.py'),{'interactive':interactive,'savedir':savedir})
-
         print "*****test_formaldehyde_radex.py*****"
         execfile(os.path.join(dir_prefix,'test_formaldehyde_radex.py'),{'interactive':interactive,'savedir':savedir})
         print "*****test_formaldehyde.py*****"
         execfile(os.path.join(dir_prefix,'test_formaldehyde.py'),{'interactive':interactive,'savedir':savedir})
-
         print "*****vega_echelle.py*****"
         execfile(os.path.join(dir_prefix,'vega_echelle_example.py'),{'interactive':interactive,'savedir':savedir})
-
         print "*****test_voigt.py*****"
         execfile(os.path.join(dir_prefix,'test_voigt.py'))
-
         print "*****test_juliantxt.py*****"
         execfile(os.path.join(dir_prefix,'test_juliantxt.py'))
-
         print "*****test_spectral_cube.py*****"
         execfile(os.path.join(dir_prefix,'test_spectral_cube.py'))
-
         print "*****test_moments.py*****"
         execfile(os.path.join(dir_prefix,'test_moments.py'))
+        print "*****test_spectroscopicAxis_fit.py*****"
+        execfile(os.path.join(dir_prefix,'test_spectroscopicAxis_fit.py'))
+        print "*****test_Cube_fiteach.py*****"
+        execfile(os.path.join(dir_prefix,'test_Cube_fiteach.py'))
 
         print "*****test_masking.py*****"
         execfile(os.path.join(dir_prefix,'test_masking.py'))
@@ -90,6 +87,7 @@ def test_everything(savedir=''):
     #runs 630 fits; left it out
     # print "*****n2hp_cube_example.py*****"
     # execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
+    #this should have an equivalency to convert between m/s and Hz [refX is none but refX_unit is Hz which is suspicious]
     # print "*****hcn_cube_test.py*****"
     # execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
     print "*****voigt.py*****"
@@ -104,8 +102,8 @@ def test_everything(savedir=''):
     execfile(os.path.join(dir_prefix,'hcn_example.py'))
     print "*****doublet_example.py*****"
     execfile(os.path.join(dir_prefix,'doublet_example.py'))
-    # print "*****agn_example.py*****"
-    # execfile(os.path.join(dir_prefix,'agn_example.py'))
+    print "*****agn_example.py*****"
+    execfile(os.path.join(dir_prefix,'agn_example.py'))
     print "*****ammonia_vtau_fit_example.py*****"
     execfile(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print "*****ammonia_fit_example.py*****"
