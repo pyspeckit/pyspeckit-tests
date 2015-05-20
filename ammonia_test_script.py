@@ -3,7 +3,6 @@
 # with fake data produced by ammonia_model.n_modelfunc              #
 # using the xarr from G031.947+00.076_nh3_11_Tastar.fits [for now]  #
 #####################################################################
-
 from pyspeckit.spectrum.models import ammonia
 from pyspeckit.spectrum.models.ammonia_constants import freq_dict
 from pyspeckit import Spectrum
@@ -38,17 +37,12 @@ def generate_guesses(starting_params, parameter_error_amplitude):
                          [ammonia.ammonia_model().n_modelfunc(pars=starting_params)(xarr11)])
 def test_ammonia_model(rawdata):
     for i in range(1):
-        # xarr22 = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=freq_dict['twotwo'], velocity_convention='radio')
         # xarr33 = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=freq_dict['threethree'], velocity_convention='radio')
-
         guesses = generate_guesses(starting_params, parameter_error_amplitude)
         while guesses[0] < 2.73 or guesses[1] < 2.73 or guesses[5] > 1 or guesses[5] < 0:
             guesses = generate_guesses(starting_params, parameter_error_amplitude)
-
         # producing the fake data using the sample file
         # the above defined xarr produces an array of zeroes (and a nan around the middle)
-        # try:
-        # rawdata = ammonia.ammonia_model().n_modelfunc(pars=starting_params)(xarr11)
         sp = Spectrum(xarr=xarr11, data=rawdata)
         try:
             sp.specfit(fittype='ammonia', guesses=guesses)
@@ -76,3 +70,15 @@ def test_ammonia_model(rawdata):
         print key
         print results[key]
 
+def test_22_Spectrum():
+    sp22 = Spectrum('G032.020+00.065_nh3_22_Tastar.fits')
+    xarr22 = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=freq_dict['twotwo'], velocity_convention='radio')
+    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=sp22.specfit.moments(fittype='ammonia'))(xarr22)
+    all_zeros = not np.any(rawdata22)
+    print rawdata22
+    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=starting_params)(xarr22)
+    all_zeros = not np.any(rawdata22)
+    print rawdata22
+    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5])(xarr22)
+    print rawdata22
+    # this works but it starts with 0s
