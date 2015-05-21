@@ -1,6 +1,7 @@
 interactive=False
 import subprocess
 import os
+import sys
 import matplotlib
 
 def test_everything(savedir=''):
@@ -72,7 +73,8 @@ def test_everything(savedir=''):
         execfile(os.path.join(dir_prefix,'test_masking.py'))
 
         print "*****convert_to_unit regression test PR#12*****"
-        execfile(os.path.join(dir_prefix,'test_convert_to_unit.py'))
+        sys.path.append(dir_prefix)
+        from test_convert_to_unit import test_convert_to_unit
         test_convert_to_unit(run_with_assert=True)
 
     print "#####Testing Examples#####"

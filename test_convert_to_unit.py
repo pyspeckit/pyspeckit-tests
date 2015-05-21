@@ -32,4 +32,3 @@ def test_convert_to_unit(run_with_assert=False):
         sp.convert_to_unit(to_unit)
         if(run_with_assert):
             assert sp.unit == to_unit
-        
