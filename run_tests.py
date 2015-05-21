@@ -71,6 +71,10 @@ def test_everything(savedir=''):
         print "*****test_masking.py*****"
         execfile(os.path.join(dir_prefix,'test_masking.py'))
 
+        print "*****convert_to_unit regression test PR#12*****"
+        execfile(os.path.join(dir_prefix,'test_convert_to_unit.py'))
+        test_convert_to_unit(run_with_assert=True)
+
     print "#####Testing Examples#####"
     dir_prefix += example_prefix
         
