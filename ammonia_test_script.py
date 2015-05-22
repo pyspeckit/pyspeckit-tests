@@ -70,15 +70,19 @@ def test_ammonia_model(rawdata):
         print key
         print results[key]
 
-def test_22_Spectrum():
-    sp22 = Spectrum('G032.020+00.065_nh3_22_Tastar.fits')
-    xarr22 = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=freq_dict['twotwo'], velocity_convention='radio')
-    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=sp22.specfit.moments(fittype='ammonia'))(xarr22)
-    all_zeros = not np.any(rawdata22)
-    print rawdata22
-    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=starting_params)(xarr22)
-    all_zeros = not np.any(rawdata22)
-    print rawdata22
-    rawdata22 = ammonia.ammonia_model().n_modelfunc(pars=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5])(xarr22)
-    print rawdata22
+starting_params22 = [21.57, 5.0, 14.469, 1.11, 37.8, 0.5]
+parameter_error_amplitude22 = [2, 0.5, 1e2, .4, 2.5, .1]
+xarr22 = SpectroscopicAxis(np.linspace(-250, 385, 8192)*u.km/u.s, refX=freq_dict['twotwo'], velocity_convention='radio')
+@pytest.mark.parametrize(('rawdata'),
+                         [ammonia.ammonia_model().n_modelfunc(pars=starting_params22)(xarr22)])
+def test_22_Spectrum(rawdata):
+    guesses22 = generate_guesses(starting_params22, parameter_error_amplitude22)
+    sp22 = Spectrum(xarr=xarr22, data=rawdata)
+    try:
+        sp22.plotter()
+        sp22.specfit(fittype='ammonia', guesses=guesses)
+        plt.show()
+    except:
+        print "skipping ",guesses22
+    # print rawdata22
     # this works but it starts with 0s
