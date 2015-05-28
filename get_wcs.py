@@ -16,5 +16,8 @@ for root, dirs, files in os.walk("."):
                 # IPython.embed()
                 newwcs = oldwcs.sub([wcs.WCSSUB_SPECTRAL])
                 print "%s naxis: %d" % (file, newwcs.naxis)
-            except:
-                print "skipping "+ file
+            except Exception as ex:
+                print "Exception in "+file+":"
+                print ex
+            print "------------------------------------"
+                
