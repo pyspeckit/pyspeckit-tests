@@ -1,8 +1,7 @@
 import numpy; print numpy.geterr()
 import pyspeckit
-print numpy.geterr()
 import matplotlib
-print numpy.geterr()
+from astropy.io import fits
 
 if not 'interactive' in globals():
     interactive=False
@@ -10,7 +9,15 @@ if not 'savedir' in globals():
     savedir = ''
 
 
-sp = pyspeckit.Spectrum('hr2421.fit')
+try:
+    sp = pyspeckit.Spectrum('hr2421.fit')
+except Exception as ex:
+    assert ex.message == "'ergs s-1 cm-2 A-1' did not parse as unit: At col 0, ergs is not a valid unit. Did you mean erg?"
+
+f = fits.open('hr2421.fit')
+f[0].header['BUNIT'] = 'erg s-1 cm-2 AA-1'
+sp = pyspeckit.Spectrum.from_hdu(f[0])
+
 
 print "Does it have an axis? ",sp.plotter.axis
 sp.plotter()

@@ -10,10 +10,17 @@ Description: Simple test of SDSS data, and the measurements class.
 
 """
 
+from astropy.io import fits
 import pyspeckit
 
-# Open file
-sp = pyspeckit.Spectrum('./sample_sdss.fits', specnum = 1, errspecnum = 2)
+try:
+    sp = pyspeckit.Spectrum('./sample_sdss.fits', specnum = 1, errspecnum = 2)
+except Exception as ex:
+    assert ex.message == "'1.0E-17 erg/cm/s/Ang' did not parse as unit: At col 17, Ang is not a valid unit. Did you mean aG, aN, ag, nG or ng?"
+
+f = fits.open('./sample_sdss.fits')
+f[0].header['BUNIT'] = '1.0E-17 erg/cm/s/AA'
+sp = pyspeckit.Spectrum.from_hdu(f[0])
 
 sp.plotter()
 print 'Optical spectrum of SDSS J095751.40+105834.6.'
