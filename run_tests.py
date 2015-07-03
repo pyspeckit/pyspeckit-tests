@@ -19,6 +19,9 @@ def test_everything(savedir=''):
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
 
+    from pyspeckit.cubes.SpectralCube import test_get_neighbors
+    test_get_neighbors()
+
     curpath = os.getcwd()
 
     dir_prefix = os.path.split(os.path.abspath(__file__))[0]
