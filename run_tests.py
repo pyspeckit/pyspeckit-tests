@@ -32,6 +32,9 @@ def test_everything(savedir=''):
     run_only_examples = False
     if not run_only_examples:
 
+        print "*****test_cube_init.py*****"
+        execfile(os.path.join(dir_prefix,'test_cube_init.py'))
+
         print "*****test_nh3_loading_regression.py*****"
         execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
 
