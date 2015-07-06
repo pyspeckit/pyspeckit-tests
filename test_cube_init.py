@@ -8,3 +8,6 @@ myaxis= np.linspace(-100,100,250)
 pcube=pyspeckit.Cube(cube=mycube, xarr=myaxis, xunit='km/s')
 
 sp = pcube.get_spectrum(5,5)
+
+print pcube
+print pcube.__repr__()
