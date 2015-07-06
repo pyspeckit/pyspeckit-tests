@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 from astropy.io import fits
 import pyspeckit
@@ -9,5 +10,5 @@ pcube=pyspeckit.Cube(cube=mycube, xarr=myaxis, xunit='km/s')
 
 sp = pcube.get_spectrum(5,5)
 
-print pcube
-print pcube.__repr__()
+print(pcube)
+print(pcube.__repr__())
