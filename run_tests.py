@@ -19,6 +19,18 @@ def test_everything(savedir=''):
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
 
+    from pyspeckit.spectrum.tests import test_eqw
+    test_eqw.test_eqw()
+    test_eqw.test_eqw_plot()
+
+    from pyspeckit.spectrum.tests import test_fitter
+    tf = test_fitter.TestFitter()
+    tf.setup_method()
+    tf.test_fitter()
+    tf.test_invalid_guess()
+    tf.test_almost_invalid_guess()
+
+
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
 
