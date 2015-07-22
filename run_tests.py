@@ -1,4 +1,5 @@
 interactive=False
+import numpy as np
 import subprocess
 import os
 import sys
@@ -46,6 +47,11 @@ def test_everything(savedir=''):
 
         print "*****test_cube_init.py*****"
         execfile(os.path.join(dir_prefix,'test_cube_init.py'))
+        print "*****test_Cube_fiteach.py*****"
+        import test_Cube_fiteach as tCf
+        tCf.test_fiteach(
+            tCf.gf.n_modelfunc(pars=tCf.params)(tCf.xarr.value),
+            np.random.randn(tCf.xarr.value.size)/100.)
 
         print "*****test_nh3_loading_regression.py*****"
         execfile(os.path.join(dir_prefix,'test_nh3_loading_regression.py'))
