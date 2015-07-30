@@ -11,7 +11,7 @@ print "Does it have an axis? ",sp.plotter.axis
 sp.plotter()
 print "How about now? ",sp.plotter.axis
 assert sp.plotter.xlabel == 'Velocity (m / s)'
-assert sp.plotter.ylabel == '$T_A^*$ (K)'
+assert sp.plotter.ylabel == "Brightness Temperature $T$ (K)"
 
 
 # set the baseline to zero to prevent variable-height fitting
