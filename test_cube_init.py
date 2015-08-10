@@ -23,3 +23,13 @@ stack.xarr.convert_to_unit(u.km/u.s)
 x = stack.get_spectrum(0,0)
 y = x.slice(10, 20)
 y.xarr.convert_to_unit('km/s')
+
+
+# Regression test for unit declaration...
+pcube=pyspeckit.Cube(cube=mycube, xarr=myaxis, xunit='km/s',
+                     xarrkwargs=dict(refX=1*u.GHz, velocity_convention='radio'))
+pcube.xarr.velocity_convention='radio'
+pcube.xarr.refX=1
+pcube.xarr.refX_unit=u.GHz
+
+pcube.xarr.convert_to_unit('m/s')
