@@ -8,6 +8,8 @@ mycube= np.random.randn(250,50,50)
 myaxis= np.linspace(-100,100,250)
 pcube=pyspeckit.Cube(cube=mycube, xarr=myaxis, xunit='km/s')
 
+assert pcube.xarr.flags['OWNDATA']
+
 sp = pcube.get_spectrum(5,5)
 
 print(pcube)

@@ -33,6 +33,7 @@ def test_fiteach(rawdata, noise):
         cube = np.array(cube)
         cube = np.rollaxis(cube, 2, 0)
         sp = SpectralCube.Cube(xarr=xarr, cube=cube, unit='Hz')
+        assert sp.xarr.flags['OWNDATA']
         sp.fiteach(guesses=guesses, errspec=errspec, signal_cut=0,
                    fitkwargs={'guesses':guesses}, prevalidate_guesses=True)
         # sp.plotter(axis=plt.gca())
