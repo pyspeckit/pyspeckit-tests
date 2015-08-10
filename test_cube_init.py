@@ -19,3 +19,7 @@ print(pcube.__repr__())
 
 stack = pyspeckit.CubeStack([pcube, pcube])
 stack.xarr.convert_to_unit(u.km/u.s)
+
+x = stack.get_spectrum(0,0)
+y = x.slice(10, 20)
+y.xarr.convert_to_unit('km/s')
