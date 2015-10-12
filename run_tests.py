@@ -118,10 +118,11 @@ def test_everything(savedir=''):
     
     #WORKING EXAMPLES
     #runs 630 fits; left it out
-    # print "*****n2hp_cube_example.py*****"
-    # execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
-    # print "*****hcn_cube_test.py*****"
-    # execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
+    print "*****n2hp_cube_example.py*****"
+    execfile(os.path.join(dir_prefix,'n2hp_cube_example.py'))
+    # missing files
+    #print "*****hcn_cube_test.py*****"
+    #execfile(os.path.join(dir_prefix,'hcn_cube_test.py'))
     print "*****voigt.py*****"
     execfile(os.path.join(dir_prefix,'voigt.py'))
     print "*****sn_example.py*****"
