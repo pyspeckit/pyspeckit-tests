@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 import pyspeckit
 from pylab import *
+from astropy import units as u
 
 if not 'savedir' in globals():
     savedir = ''
@@ -38,7 +39,7 @@ for i in range(len(files)):
     spec[i].plotter.refresh()
     spec[i].plotter.figure.savefig(savedir+'example1a.png')
     # remove continuum around the emission lines
-    spec[i].crop(9000,10500)
+    spec[i].crop(9000*u.AA,10500*u.AA)
     spec[i].baseline(subtract=False)
     spec[i].baseline()
     spec[i].plotter.refresh()
