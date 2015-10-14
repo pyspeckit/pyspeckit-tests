@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 import matplotlib
 import numpy as np
@@ -27,11 +28,13 @@ buttons = [1,1,1,1,2]
 transform = spec.plotter.axis.transData.transform_point
 xy = [transform((xp,yp)) for xp,yp in zip(xpoints,ypoints)]
 
-events = [matplotlib.backend_bases.MouseEvent('button_press_event', spec.plotter.axis.figure.canvas,xp,yp,button=bt)
+events = [matplotlib.backend_bases.MouseEvent('button_press_event',
+                                              spec.plotter.axis.figure.canvas,
+                                              xp, yp, button=bt)
           for (xp,yp),bt in zip(xy,buttons)]
 
 for ev in events:
-    print ev.xdata,ev.ydata
+    print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
     spec.baseline.event_manager(ev)
 
 spec.baseline.highlight_fitregion()
@@ -44,26 +47,28 @@ buttons = [1,1,2,2,3]
 xy = [transform((xp,yp)) for xp,yp in zip(xpoints,ypoints)]
 
 for ev in events:
-    print ev.xdata,ev.ydata
+    print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
     spec.baseline.event_manager(ev)
 
-events = [matplotlib.backend_bases.KeyEvent('button_press_event', spec.plotter.axis.figure.canvas,x=xp,y=yp,key=bt)
+events = [matplotlib.backend_bases.KeyEvent('button_press_event',
+                                            spec.plotter.axis.figure.canvas,
+                                            x=xp, y=yp, key=bt)
           for (xp,yp),bt in zip(xy,buttons)]
 
 for ev in events:
-    print ev.xdata,ev.ydata
+    print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
     spec.specfit.event_manager(ev)
 
 
-print "Includemask before excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
+print("Includemask before excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 spec.baseline(excludefit=True)
 spec.baseline.highlight_fitregion()
-print "Includemask after excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
+print("Includemask after excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 spec.specfit(guesses=spec.specfit.modelpars)
 
 spec.plotter.figure.savefig(savedir+"simple_fit_interactive_HCOp.png")
 
-print "Doing the interactive thing now"
+print("Doing the interactive thing now")
 event1 = matplotlib.backend_bases.KeyEvent('key_press_event', spec.plotter.axis.figure.canvas,key='o')
 # event 1 is clicking the zoom button
 x,y = transform((-100,-0.07))
@@ -91,10 +96,10 @@ else:
     spec.plotter.axis.set_ylim(-0.07, 0.16)
 
 #spec.plotter.debug=True
-print "Includemask before excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
+print("Includemask before excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 spec.baseline(excludefit=True,use_window_limits=True,highlight=True)
 spec.baseline.highlight_fitregion()
-print "Includemask after excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum()
+print("Includemask after excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 # total 512 pixels, 5 should be excluded inside, 107 should be available
 assert spec.baseline.includemask.sum() == 103
 spec.specfit.peakbgfit(use_window_limits=True, vheight=False)
@@ -103,13 +108,13 @@ spec.specfit.peakbgfit(use_window_limits=True, vheight=False)
 # this should *NOT* be 107!  107 is ALL data between -100 and +20
 # this should be 103, which tells you that the fit has been excluded!
 # (note added 2/12/2014)
-print spec.baseline.includemask.sum()
+print(spec.baseline.includemask.sum())
 assert spec.baseline.includemask.sum() == 103
-assert spec.baseline.includemask[spec.xarr.x_to_pix(-27.16)] == False
+assert ~spec.baseline.includemask[spec.xarr.x_to_pix(-27.16)]
 
 event1 = matplotlib.backend_bases.KeyEvent('key_press_event', spec.plotter.axis.figure.canvas,key='B')
 spec.plotter.parse_keys(event1)
-print "spec.baseline.includemask.sum()",spec.baseline.includemask.sum()
+print("spec.baseline.includemask.sum()",spec.baseline.includemask.sum())
 assert spec.baseline.includemask.sum() == 0
 x,y = transform((-153.3,-0.007))
 event2 = matplotlib.backend_bases.MouseEvent('button_press_event', spec.plotter.axis.figure.canvas,button=1,x=x,y=y)
@@ -127,7 +132,8 @@ assert spec.baseline.includemask.sum() == 264
 
 event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,3,244,0.1
 spec.baseline.event_manager(event2,debug=True)
-np.testing.assert_array_almost_equal(spec.baseline.baselinepars, np.array([-0.00016474, -0.01488391]))
+np.testing.assert_array_almost_equal(spec.baseline.baselinepars,
+                                     np.array([ 0.00018459, -0.06204629]))
 
 
 spec.baseline.selectregion(reset=True)
@@ -137,4 +143,4 @@ assert np.all(spec.baseline.includemask)
 # reset_selection intentionally has a different behavior than reset
 # for interactive, you want POSITIVE selection, not negative
 spec.baseline(interactive=True, reset_selection=True)
-assert np.all(True-spec.baseline.includemask)
+assert np.all(~spec.baseline.includemask)

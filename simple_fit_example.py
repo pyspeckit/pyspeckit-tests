@@ -42,7 +42,7 @@ spec.plotter.figure.savefig(savedir+"simple_fit_example_HCOp.png")
 spec.specfit.residualaxis.figure.savefig(savedir+"simple_fit_example_HCOp_residuals.png")
 
 # Also, let's crop out stuff we don't want...
-spec.crop(-100,100)
+spec.crop(-100*u.km/u.s, 100*u.km/u.s)
 # replot after cropping (crop doesn't auto-refresh)
 spec.plotter()
 # replot the fit without re-fitting
