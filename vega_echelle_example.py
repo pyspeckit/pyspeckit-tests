@@ -1,6 +1,9 @@
 import pyspeckit
 from pylab import *
-import wav2rgb
+
+if 'wav2rgb' not in globals():
+    # this is to deal with python3 not being able to execfile
+    import wav2rgb
 
 if not 'interactive' in globals():
     interactive=False

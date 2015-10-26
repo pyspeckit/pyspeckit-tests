@@ -26,12 +26,20 @@ xpoints = [-270,-150,55,218,218]
 ypoints = [0]*5
 buttons = [1,1,1,1,2]
 transform = spec.plotter.axis.transData.transform_point
-xy = [transform((xp,yp)) for xp,yp in zip(xpoints,ypoints)]
+# this absolutely ridiculous line is to deal with scope changes from py2->py3
+# http://stackoverflow.com/questions/13905741/accessing-class-variables-from-a-list-comprehension-in-the-class-definition#comment19179733_13913933
+def xy_(transform, xpoints, ypoints):
+    return [transform((xp,yp)) for xp,yp in zip(xpoints,ypoints)]
+xy = xy_(transform, xpoints, ypoints)
 
-events = [matplotlib.backend_bases.MouseEvent('button_press_event',
-                                              spec.plotter.axis.figure.canvas,
-                                              xp, yp, button=bt)
-          for (xp,yp),bt in zip(xy,buttons)]
+mouseevent = matplotlib.backend_bases.MouseEvent
+def events_(MouseEvent=matplotlib.backend_bases.MouseEvent,
+            canvas=spec.plotter.axis.figure.canvas,
+            xy=xy,
+            buttons=buttons):
+    return [MouseEvent('button_press_event', canvas,
+                       xp, yp, button=bt) for (xp,yp),bt in zip(xy,buttons)]
+events = events_()
 
 for ev in events:
     print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
@@ -44,16 +52,20 @@ spec.specfit(interactive=True)
 xpoints = [-52,-5,-26,-29,-29]
 ypoints = [0, 0, 0.14, 0.07, 0]
 buttons = [1,1,2,2,3]
-xy = [transform((xp,yp)) for xp,yp in zip(xpoints,ypoints)]
+xy = xy_(transform, xpoints, ypoints)
 
 for ev in events:
     print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
     spec.baseline.event_manager(ev)
 
-events = [matplotlib.backend_bases.KeyEvent('button_press_event',
-                                            spec.plotter.axis.figure.canvas,
-                                            x=xp, y=yp, key=bt)
-          for (xp,yp),bt in zip(xy,buttons)]
+def events_(KeyEvent=matplotlib.backend_bases.KeyEvent,
+            canvas=spec.plotter.axis.figure.canvas,
+            xy=xy,
+            buttons=buttons):
+    return [KeyEvent('button_press_event', canvas,
+                     x=xp, y=yp, key=bt) for (xp,yp),bt in zip(xy,buttons)]
+events = events_(matplotlib.backend_bases.KeyEvent,
+                 spec.plotter.axis.figure.canvas, xy, buttons)
 
 for ev in events:
     print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
