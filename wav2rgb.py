@@ -1,5 +1,6 @@
 """
-Simple colorizing code borrowed from http://codingmess.blogspot.com/2009/05/conversion-of-wavelength-in-nanometers.html
+Simple colorizing code borrowed from
+http://codingmess.blogspot.com/2009/05/conversion-of-wavelength-in-nanometers.html
 """
 def wav2RGB(wavelength):
     """
@@ -49,4 +50,3 @@ def wav2RGB(wavelength):
         SSS = 0.0
 
     return [float(SSS*R), float(SSS*G), float(SSS*B)]
-
