@@ -7,10 +7,11 @@ import matplotlib
 
 if 'execfile' not in globals():
     # for python 3
-    def execfile(fn, *args, **kwargs):
+    def execfile(fn, lglobals, llocals):
         with open(fn, 'rb') as f:
             code = f.read()
-        exec(code, *args, **kwargs)
+        lglobals.update({'__name__':fn})
+        exec(code, lglobals, llocals)
 
 def test_everything(savedir=''):
 
