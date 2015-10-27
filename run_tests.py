@@ -4,6 +4,7 @@ import subprocess
 import os
 import sys
 import matplotlib
+from astropy.utils.console import ProgressBar
 
 # for python 3
 def execute_file(fn, lglobals=None, llocals=None):
@@ -30,9 +31,10 @@ def test_everything(savedir=''):
         ioff()
 
     #test_units()
-    from pyspeckit.spectrum.tests import test_units as tu
-    for p in tu.params:
-        print("Testing unit conversion with {0}".format(p))
+    from pyspeckit.spectrum.tests import test_units
+    tu = test_units.TestUnits()
+    for p in ProgressBar(test_units.params):
+        #print("Testing unit conversion with {0}".format(p))
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
 
