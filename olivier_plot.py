@@ -122,10 +122,9 @@ def fitrow(n):
 
 def savefit(n,pars):
     filename='khipos.dat'
-    f = open(filename, 'a')
-    savetxt(f,[n]+pars, fmt='%1.6e', newline='\t')
-    print >>f, ''
-    f.close()
+    with open(filename 'a') as f:
+        savetxt(f,[n]+pars, fmt='%1.6e', newline='\t')
+        print >>f, ''
 
 field=linspace(1.2,-1.2,97)
 for n in range(20,22):
