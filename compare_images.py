@@ -44,23 +44,23 @@ def plot_difference_image(im1, im2, savename=None):
     
     pylab.subplot(2,3,4)
     ignore_im1 = ( (im1arr == 255).sum(axis=2) == 4 )[ymin:ymax,xmin:xmax]
-    #pylab.hist(im1arr[ymin:ymax,xmin:xmax,3][True-ignore_im1],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im1arr[ymin:ymax,xmin:xmax,0][True-ignore_im1],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im1arr[ymin:ymax,xmin:xmax,1][True-ignore_im1],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im1arr[ymin:ymax,xmin:xmax,2][True-ignore_im1],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    #pylab.hist(im1arr[ymin:ymax,xmin:xmax,3][~ignore_im1],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im1arr[ymin:ymax,xmin:xmax,0][~ignore_im1],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im1arr[ymin:ymax,xmin:xmax,1][~ignore_im1],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im1arr[ymin:ymax,xmin:xmax,2][~ignore_im1],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
 
     pylab.subplot(2,3,5)
     ignore_im2 = ( (im2arr == 255).sum(axis=2) == 4 )[ymin:ymax,xmin:xmax]
-    #pylab.hist(im2arr[ymin:ymax,xmin:xmax,3][True-ignore_im2],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im2arr[ymin:ymax,xmin:xmax,0][True-ignore_im2],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im2arr[ymin:ymax,xmin:xmax,1][True-ignore_im2],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist(im2arr[ymin:ymax,xmin:xmax,2][True-ignore_im2],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    #pylab.hist(im2arr[ymin:ymax,xmin:xmax,3][~ignore_im2],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im2arr[ymin:ymax,xmin:xmax,0][~ignore_im2],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im2arr[ymin:ymax,xmin:xmax,1][~ignore_im2],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist(im2arr[ymin:ymax,xmin:xmax,2][~ignore_im2],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
 
     pylab.subplot(2,3,6)
-    #pylab.hist((diffarr)[ymin:ymax,xmin:xmax,3][True-ignore_diff],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,0][True-ignore_diff],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,1][True-ignore_diff],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
-    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,2][True-ignore_diff],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    #pylab.hist((diffarr)[ymin:ymax,xmin:xmax,3][~ignore_diff],edgecolor='black',color='black',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,0][~ignore_diff],edgecolor='red',color='red',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,1][~ignore_diff],edgecolor='green',color='green',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
+    pylab.hist((diffarr)[ymin:ymax,xmin:xmax,2][~ignore_diff],edgecolor='blue',color='blue',alpha=0.25,bins=pylab.linspace(1,254,33),histtype='stepfilled')
 
     if savename is not None:
         pylab.savefig(savename)
