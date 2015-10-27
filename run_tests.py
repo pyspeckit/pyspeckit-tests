@@ -32,6 +32,7 @@ def test_everything(savedir=''):
     #test_units()
     from pyspeckit.spectrum.tests import test_units as tu
     for p in tu.params:
+        print("Testing unit conversion with {0}".format(p))
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
 
