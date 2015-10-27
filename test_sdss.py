@@ -40,5 +40,7 @@ sp.measure(z = sp.header.get('Z'), fluxnorm = 1e-17, restframe = True)
 
 print('Line   Wavelength (A)  FWHM (A)  Flux (erg/s/cm^2/Ang)  Luminosity (erg/s)')
 for line in sp.measurements.lines:
-    print(line, sp.measurements.lines[line]['pos'], sp.measurements.lines[line]['fwhm'], \)
-        sp.measurements.lines[line]['flux'], sp.measurements.lines[line]['lum']
+    print(line, sp.measurements.lines[line]['pos'],
+          sp.measurements.lines[line]['fwhm'],
+          sp.measurements.lines[line]['flux'],
+          sp.measurements.lines[line]['lum'])
