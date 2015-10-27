@@ -1,3 +1,4 @@
+from __future__ import print_function
 ########################################################################
 # This test checks if the moments() method for every model             #
 # in Registry.multifitters produces the correct number of paramerters. #
@@ -17,12 +18,12 @@ rawdata = np.random.randn(xarr.size)
 # creating a sample Spectrum from a .fits file
 sp = Spectrum('test.fits')
 for model_name in sp.specfit.Registry.multifitters.iterkeys():
-    print 'testing:', model_name
+    print('testing:', model_name)
     model = sp.specfit.Registry.multifitters[model_name]
     moments = getattr(model, 'moments')
     # creating the random data which are not relevant
     params = model.moments(xarr, rawdata)
-    print 'params from moments:',params
+    print('params from moments:',params)
     # if this call does not raise an Exception then moments() produced
     # the correct number of parameters 
     model.n_modelfunc(pars=params)(xarr)

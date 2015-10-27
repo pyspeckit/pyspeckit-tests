@@ -1,6 +1,7 @@
+from __future__ import print_function
 from pyspeckit.spectrum.readers import gbt
 session = gbt.GBTSession('3C286.fits')
-print session
+print(session)
 session.load_target('3C286')
 target = session['3C286']
 sp = target.blocks['A13OFF2'][0] # there are 4 identical spectra
@@ -11,12 +12,12 @@ stats = sp.stats(statrange=(-20+207458,20+207458))
 sp.error[:] = stats['std']
 sp.specfit(fittype='gaussian')
 sp.specfit.plotresiduals(drawstyle='line')
-print "Gaussian chi^2: %g  chi^2/n: %g" % (sp.specfit.chi2, sp.specfit.chi2/sp.specfit.dof)
-print "Optimal chi^2: %g  chi^2/n: %g" % (sp.specfit.optimal_chi2(reduced=False),sp.specfit.optimal_chi2())
+print("Gaussian chi^2: %g  chi^2/n: %g" % (sp.specfit.chi2, sp.specfit.chi2/sp.specfit.dof))
+print("Optimal chi^2: %g  chi^2/n: %g" % (sp.specfit.optimal_chi2(reduced=False),sp.specfit.optimal_chi2()))
 sp.specfit(fittype='voigt', clear=False, composite_fit_color='blue')
 sp.specfit.plotresiduals(clear=False, color='blue', drawstyle='line')
-print "Voigt   chi^2: %g  chi^2/n: %g" % (sp.specfit.chi2, sp.specfit.chi2/sp.specfit.dof)
-print "Optimal chi^2: %g  chi^2/n: %g" % (sp.specfit.optimal_chi2(reduced=False),sp.specfit.optimal_chi2())
+print("Voigt   chi^2: %g  chi^2/n: %g" % (sp.specfit.chi2, sp.specfit.chi2/sp.specfit.dof))
+print("Optimal chi^2: %g  chi^2/n: %g" % (sp.specfit.optimal_chi2(reduced=False),sp.specfit.optimal_chi2()))
 sp.specfit.residualaxis.set_ylim(-0.2,0.2)
 
 # this is usually unnecessary, but it's platform-dependent

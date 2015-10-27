@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from __future__ import print_function
 import pyspeckit
 from pylab import *
 from astropy import units as u
@@ -74,8 +75,8 @@ for i in range(len(files)):
     spec[i].specfit(guesses=guesses,quiet=False,annotate=False,parinfo=parinfo)
     # cross-checking redshift
     OIIIb_obs = spec[i].specfit.modelpars[-2]
-    print 'Our guess for the redshift was z = %g' % z0
-    print 'The redshift, as derived by the line shift, is z = %g' % ((OIIIb_obs/OIIIb)-1)
+    print('Our guess for the redshift was z = %g' % z0)
+    print('The redshift, as derived by the line shift, is z = %g' % ((OIIIb_obs/OIIIb)-1))
 
     # spec[i].specfit.shift_pars('rest')
     

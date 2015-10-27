@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 
 if not 'interactive' in globals():
@@ -56,11 +57,11 @@ sp.baseline.order = 0
 guesses = sp3.specfit.moments(fittype='gaussian')[1:]
 sp.specfit(fittype='gaussian', guesses=guesses)
 sp.plotter.figure.savefig(savedir+'nh3_gaussfit.png')
-print "Guesses: ", sp.specfit.guesses
-print "Best fit: ", sp.specfit.modelpars
+print("Guesses: ", sp.specfit.guesses)
+print("Best fit: ", sp.specfit.modelpars)
 
 #sp.baseline(exclude=[0,200],order=0)
-#print "Plotter min/max: ",sp.plotter.xmin,sp.plotter.xmax," Fitter min/max: ",sp.specfit.gx1,sp.specfit.gx2," Fitregion= ",sp.baseline.excludevelo,sp.baseline.excludepix
+#print("Plotter min/max: ",sp.plotter.xmin,sp.plotter.xmax," Fitter min/max: ",sp.specfit.gx1,sp.specfit.gx2," Fitregion= ",sp.baseline.excludevelo,sp.baseline.excludepix)
 #if interactive: raw_input('Baseline')
 #sp.specfit(fittype='ammonia',multifit=True,guesses=[20,20,1e16,1.0,-55.0,0.5],quiet=False,xunits='Hz')
 sp.specfit(fittype='ammonia', guesses=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5],
@@ -70,8 +71,8 @@ sp.specfit(fittype='ammonia', guesses=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5],
           )
 sp.specfit.plotresiduals()
 sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit.png')
-print "Guesses: ", sp.specfit.guesses
-print "Best fit: ", sp.specfit.modelpars
+print("Guesses: ", sp.specfit.guesses)
+print("Best fit: ", sp.specfit.modelpars)
 sp.specfit.plot_fit()
 sp.plotter(xmin=2.3689e10,xmax=2.3694e10,clear=False)
 sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit_11_zoom.png')

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import shutil
 import urllib
@@ -126,7 +127,7 @@ paths = ["-".join(names) for names in cross_product(packages_versions)]
 for versions,targetpath in zip(crossprod_versions,paths):
 
     for target,vers in versions:
-        print target,vers
+        print(target,vers)
         if target == 'python':
             versions.remove((target,vers))
             python_version = vers
@@ -146,7 +147,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
         import pdb; pdb.set_trace()
 
     fullpath = "{0}/{1}/".format(pwd, targetpath)
-    print fullpath
+    print(fullpath)
 
     # Skip if already exists
     #if os.path.exists(targetpath):
@@ -167,7 +168,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
         importname = package_import_names[target]
         tryvalue = os.system(python + " -c 'import {0}'".format(importname))
         if tryvalue != 0:
-            print "{0}{2} was not installed (import returned {1}).  Installing now.".format(importname,tryvalue,vers)
+            print("{0}{2} was not installed (import returned {1}).  Installing now.".format(importname,tryvalue,vers))
             os.chdir('{0}-{1}'.format(target,vers))
             if target == 'matplotlib':
                 os.system(matplotlib_command.format(pybinpath=fullpath+'/bin/', pyrootpath=fullpath, pyver=python_version ))
@@ -178,7 +179,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
             os.chdir('../')
         tryvalue2 = os.system(python + " -c 'import {0}'".format(importname))
         if tryvalue2 != 0:
-            print "{0}{2} failed its install (import returned {1}).  Re-installing now, after cleaning.".format(importname,tryvalue,vers)
+            print("{0}{2} failed its install (import returned {1}).  Re-installing now, after cleaning.".format(importname,tryvalue,vers))
             os.chdir('{0}-{1}'.format(target,vers))
             os.system(package_install_prefixes[target] +" "+ interpreter + ' setup.py clean >> logfile')
             os.system('rm -r build/')
@@ -191,7 +192,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
             os.chdir('../')
         tryvalue3 = os.system(python + " -c 'import {0}'".format(importname))
         if tryvalue3 != 0:
-            print "ERROR: {0} failed to install after a clean!".format(importname)
+            print("ERROR: {0} failed to install after a clean!".format(importname))
             import pdb; pdb.set_trace()
     
     # independent matplotlib check
@@ -201,7 +202,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
         import pdb; pdb.set_trace()
 
 
-    print (interpreter+" -c 'import {0}'").format(','.join(package_import_names.values()))
+    print((interpreter+" -c 'import {0}'").format(','.join(package_import_names.values())))
     if (os.system((interpreter+" -c 'import {0}'").format(','.join(package_import_names.values())))) != 0:
         import pdb; pdb.set_trace()
         #raise Exception("Install failed!")

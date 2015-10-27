@@ -1,3 +1,4 @@
+from __future__ import print_function
 import ImageChops
 import numpy
 import pylab
@@ -91,21 +92,21 @@ if __name__ == "__main__":
     filelist1 = [s.split('/')[1] for s in glob.glob("%s*png" % dir1) if "compare.png" not in s]
     filelist2 = [s.split('/')[1] for s in glob.glob("%s*png" % dir2) if "compare.png" not in s]
 
-    print "Comparing %i files in %s to %i files in %s" % (len(filelist1), options.version, len(filelist2), currentversion)
+    print("Comparing %i files in %s to %i files in %s" % (len(filelist1), options.version, len(filelist2), currentversion))
     if int(options.version) < 521:
-        print "WARNING: Before version 521, the figures may have been displayed\
+        print("WARNING: Before version 521, the figures may have been displayed\
         in an interactive (ion()) window, which made them smaller, resulting in\
-        big differences."
+        big differences.")
     for fn in filelist1:
         if fn in filelist2:
             im1 = Image.open(dir1+fn)
             im2 = Image.open(dir2+fn)
             if not equal(im1,im2):
                 RMS = rmsdiff(im1,im2)
-                print "%s differs from version %s to %s.  RMS: %f" % (fn, options.version, currentversion, RMS)
+                print("%s differs from version %s to %s.  RMS: %f" % (fn, options.version, currentversion, RMS))
                 if RMS > 1000:
                     plot_difference_image(im1,im2,dir2+fn.replace(".png","_compare.png"))
             else:
-                print "%s OK in both %s and %s" % (fn, options.version, currentversion)
+                print("%s OK in both %s and %s" % (fn, options.version, currentversion))
         else:
-            print "%s exists in %s, but not in %s" % (fn, options.version, currentversion)
+            print("%s exists in %s, but not in %s" % (fn, options.version, currentversion))

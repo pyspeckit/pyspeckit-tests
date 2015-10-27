@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 # Import the ALFALFA reader (deals with the specific structure type assumed for
 # an ALFALFA src file)
@@ -6,7 +7,7 @@ from pyspeckit.spectrum.readers import alfalfa
 # Read the full contents of an ALFALFA .src file
 HI1459 = alfalfa.read_alfalfa_file('HI145947.9+152515_1500+15d.src')
 # print out the contents of the dictionary
-print HI1459
+print(HI1459)
 
 # make a shortcut for the source
 src = HI1459['145947.9+152515']

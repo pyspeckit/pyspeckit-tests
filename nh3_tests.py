@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 from pyspeckit.spectrum.models import ammonia
 import time
@@ -101,18 +102,18 @@ for tk in test_parameters['TKIN']:
 
                 outs.append(sp.specfit.parinfo.values[:4])
                 errors.append(sp.specfit.parinfo.errors[:4])
-                print " ".join(["%7s" % round(x,1) for x in ins[-1]]),"|",
-                print " ".join(["%7s" % round(x,1) for x in outs[-1]]),"|",
-                print " ".join(["%7s" % round((x-y),1) for x,y in zip(ins[-1],outs[-1])]),"|",
-                print " ".join(["%7s" % round((x),1) for x in errors[-1]]),"|",
+                print(" ".join(["%7s" % round(x,1) for x in ins[-1]]),"|",)
+                print(" ".join(["%7s" % round(x,1) for x in outs[-1]]),"|",)
+                print(" ".join(["%7s" % round((x-y),1) for x,y in zip(ins[-1],outs[-1])]),"|",)
+                print(" ".join(["%7s" % round((x),1) for x in errors[-1]]),"|",)
 
                 fit_tau = ammonia.ammonia(xarr, tkin=outs[-1][0], tex=outs[-1][1], ntot=outs[-1][2], width=outs[-1][3], xoff_v=0,
                         fortho=0.5, return_tau=True)
 
                 taus.append([real_tau['oneone'],real_tau['twotwo'],
                         fit_tau['oneone'],fit_tau['twotwo']])
-                print " ".join(['%7s' % round(x,1) for x in taus[-1]]),"|",
-                print "%7.1f" % (time.time()-t0)
+                print(" ".join(['%7s' % round(x,1) for x in taus[-1]]),"|",)
+                print("%7.1f" % (time.time()-t0))
 
     insarr = np.array(ins)
     outsarr = np.array(outs)

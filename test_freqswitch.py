@@ -1,3 +1,4 @@
+from __future__ import print_function
 from astropy import units as u
 from astropy.extern.six import iteritems
 try:
@@ -30,7 +31,7 @@ sp = pyspeckit.Spectrum('test_freqswitch.fits')
 sp.plotter()
 pylab.plot(x,y,'k--',drawstyle='steps-mid')
 
-print ("First test - do the FITS version and the input match up?")
+print(("First test - do the FITS version and the input match up?"))
 # import pdb; pdb.set_trace()
 
 assert(sp.xarr.unit is not u.dimensionless_unscaled)
@@ -38,6 +39,6 @@ sp.xarr = sp.xarr.as_unit('km/s', center_frequency=105.0, center_frequency_unit=
 
 sp.plotter(reset_xlimits=True)
 
-print ("Test two - what happens when we set the reference frequency to be 105?")
-print "The positive lines should be on the right side.  So they are.  OK."
+print(("Test two - what happens when we set the reference frequency to be 105?"))
+print("The positive lines should be on the right side.  So they are.  OK.")
 # import pdb; pdb.set_trace()

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 from pylab import *
 from numpy import *
@@ -124,7 +125,7 @@ def savefit(n,pars):
     filename='khipos.dat'
     with open(filename 'a') as f:
         savetxt(f,[n]+pars, fmt='%1.6e', newline='\t')
-        print >>f, ''
+        print('', file=f)
 
 field=linspace(1.2,-1.2,97)
 for n in range(20,22):
@@ -144,10 +145,6 @@ fitrow(n)
 
 
 
-## print >>f, '####################  '+str(n)+'  ####################' 
-## for i,p in enumerate(sp.specfit.parinfo):
-##     print >>f, "%12g \t %12g" % (p['value'],p['error'])
-## print >>f, "%15s: %12g +/- %12g" % (p['parname'],p['value'],p['error'])
 
 ## Y=z[239*n:239*(n+1)]; X=x[239*n:239*(n+1)]
 ## guesses,tied=findpks(Y,X,1e5)

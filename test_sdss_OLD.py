@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 
 if not 'interactive' in globals():
@@ -50,10 +51,12 @@ spec.plotter.axis.set_ylabel(r'Flux $(10^{-17} \mathrm{erg/s/cm^2/\AA})$')
 spec.plotter.refresh()
 
 # Print out spectral line information
-print "Line   Flux (erg/s/cm^2)     Amplitude (erg/s/cm^2)    FWHM (Angstrom)   Luminosity (erg/s)"
+print("Line   Flux (erg/s/cm^2)     Amplitude (erg/s/cm^2)    FWHM (Angstrom)   Luminosity (erg/s)")
 for line in spec.measurements.lines.keys():
-    print line, spec.measurements.lines[line]['flux'], spec.measurements.lines[line]['amp'], \
-        spec.measurements.lines[line]['fwhm'], spec.measurements.lines[line]['lum']
+    print(line, spec.measurements.lines[line]['flux'],
+          spec.measurements.lines[line]['amp'],
+          spec.measurements.lines[line]['fwhm'],
+          spec.measurements.lines[line]['lum'])
 
 spec.specfit.add_sliders()
         

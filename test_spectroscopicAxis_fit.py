@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 from pyspeckit.spectrum.models.inherited_gaussfitter import gaussian_fitter
 from pyspeckit import Spectrum
@@ -28,7 +29,7 @@ def test_specfit(rawdata, noise, error, params):
 		# sp.plotter(axis=plt.gca(), errstyle='fill')
 		sp.specfit(guesses=guesses)
 		assertion = ((np.array(sp.specfit.fitter.mpp)-np.array(params))/parameter_noise)**2
-		print '(mpp - params / param_noise )^2 = ', assertion
+		print('(mpp - params / param_noise )^2 = ', assertion)
 		for j,result in enumerate(assertion):
 			if strict_assertion:
 				assert result < 2
@@ -52,5 +53,5 @@ def test_specfit(rawdata, noise, error, params):
 		if fails['fails'][i]:
 			fails['avg_difference'][i] = j/fails['fails'][i]
 
-	print 'passes:', passes
-	print 'fails:', fails
+	print('passes:', passes)
+	print('fails:', fails)

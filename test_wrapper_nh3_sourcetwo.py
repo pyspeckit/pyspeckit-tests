@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 from pylab import *
 
@@ -12,8 +13,8 @@ filenames = {'oneone':'G032.020+00.065_nh3_11_Tastar.fits',
     }
 
 spdict1,spectra1 = pyspeckit.wrappers.fitnh3.fitnh3tkin(filenames,crop=[58,134],tkin=18.65,tex=4.49,column=15.5,fortho=0.9,verbose=False,smooth=6, fignum=6)
-print spectra1.specfit.Registry
-print spectra1.specfit.Registry.multifitters['ammonia']
+print(spectra1.specfit.Registry)
+print(spectra1.specfit.Registry.multifitters['ammonia'])
 
 # a sanity check
 """

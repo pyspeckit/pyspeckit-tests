@@ -1,3 +1,4 @@
+from __future__ import print_function
 from pyspeckit import spectrum
 
 # py3 compatibility

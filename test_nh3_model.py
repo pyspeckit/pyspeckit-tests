@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 from pyspeckit.spectrum.models import ammonia
 import pytest
@@ -138,7 +139,7 @@ def test_eriks_idl(testspec_idl_str, tex, tkin, plot=False):
     # The two arrays are shifted in frequency because nh3model.pro converts to
     # frequency with a different reference; the reference frequency is not centered
     # on any of the individual lines
-    #print np.array(xarr11.as_unit('Hz')) - idl_test_xarr
+    #print(np.array(xarr11.as_unit('Hz')) - idl_test_xarr)
 
     ps_spectrum = ammonia.ammonia(xarr11, tkin=tkin, tex=tex, ntot=14, width=1,
                                   xoff_v=0.0, fortho=0.5, )

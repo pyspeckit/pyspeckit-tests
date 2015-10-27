@@ -1,1 +1,1 @@
-import run_tests
+from . import run_tests

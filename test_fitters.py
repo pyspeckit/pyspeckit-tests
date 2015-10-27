@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pyspeckit
 import numpy as np
 import pytest
@@ -27,7 +28,7 @@ def test_fittypes(use_lmfit, lmfit_type):
     else:
         sp.specfit(verbose=False)
 
-    #print sp.specfit.modelpars
+    #print(sp.specfit.modelpars)
 
 sp = get_spectrum()
 @pytest.mark.parametrize(('use_lmfit','lmfit_type'),
@@ -41,7 +42,7 @@ def test_fitspeed(use_lmfit, lmfit_type):
     else:
         sp.specfit(verbose=False)
 
-    #print sp.specfit.modelpars
+    #print(sp.specfit.modelpars)
 
 lmfit_times = timeit.Timer('test_fitters.test_fittypes(True,"leastsq")',setup='import test_fitters').repeat(5,30)
 mpfit_times = timeit.Timer('test_fitters.test_fittypes(False,"leastsq")',setup='import test_fitters').repeat(5,30)
@@ -49,5 +50,5 @@ mpfit_times = timeit.Timer('test_fitters.test_fittypes(False,"leastsq")',setup='
 lmfit_nosetup_times = timeit.Timer('test_fitters.test_fitspeed(True,"leastsq")',setup='import test_fitters').repeat(5,30)
 mpfit_nosetup_times = timeit.Timer('test_fitters.test_fitspeed(False,"leastsq")',setup='import test_fitters').repeat(5,30)
 
-print "lmfit: %f +/- %f, %f +/- %f" % (np.mean(lmfit_times),np.std(lmfit_times),np.mean(lmfit_nosetup_times),np.std(lmfit_nosetup_times))
-print "mpfit: %f +/- %f, %f +/- %f" % (np.mean(mpfit_times),np.std(mpfit_times),np.mean(mpfit_nosetup_times),np.std(mpfit_nosetup_times))
+print("lmfit: %f +/- %f, %f +/- %f" % (np.mean(lmfit_times),np.std(lmfit_times),np.mean(lmfit_nosetup_times),np.std(lmfit_nosetup_times)))
+print("mpfit: %f +/- %f, %f +/- %f" % (np.mean(mpfit_times),np.std(mpfit_times),np.mean(mpfit_nosetup_times),np.std(mpfit_nosetup_times)))

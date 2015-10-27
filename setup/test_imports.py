@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import shutil
 import urllib
@@ -96,7 +97,7 @@ paths = ["-".join(names) for names in cross_product(packages_versions)]
 for versions,targetpath in zip(crossprod_versions,paths):
 
     for target,vers in versions:
-        print target,vers
+        print(target,vers)
         if target == 'python':
             versions.remove((target,vers))
             python_version = vers
@@ -108,7 +109,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
             continue
     # this should have been eliminated at the root level...
     if not "python{0}".format(python_version) in targetpath:
-        print "Skipped python{0} because it isn't in {1}".format(python_version,targetpath)
+        print("Skipped python{0} because it isn't in {1}".format(python_version,targetpath))
         continue
 
     if 'boto' in targetpath: # this is purely a hack / sanity check: I don't want to accidentally create a bunch of undesired directories
@@ -117,7 +118,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
         import pdb; pdb.set_trace()
 
     fullpath = "{0}/{1}/".format(pwd, targetpath)
-    print fullpath
+    print(fullpath)
 
     # Skip if already exists
     #if os.path.exists(targetpath):
@@ -137,9 +138,9 @@ for versions,targetpath in zip(crossprod_versions,paths):
         #    interpreter = interpreter.replace('CC=gcc ', '')
         tryvalue = os.system(python + " -c 'import {0}'".format(target))
         if tryvalue != 0:
-            print "{0}{2} was not installed (import returned {1}).  Installing now.".format(target,tryvalue,vers)
+            print("{0}{2} was not installed (import returned {1}).  Installing now.".format(target,tryvalue,vers))
         else:
-            print "{0} {1}{2} was installed".format(python,target,vers)
+            print("{0} {1}{2} was installed".format(python,target,vers))
     
     # independent matplotlib check
     trypylab = os.system(python + " -c 'import pylab'")
@@ -148,7 +149,7 @@ for versions,targetpath in zip(crossprod_versions,paths):
         import pdb; pdb.set_trace()
 
 
-    print (interpreter+" -c 'import {0}'").format(','.join(dict(versions).keys()))
+    print((interpreter+" -c 'import {0}'").format(','.join(dict(versions).keys())))
     if (os.system((interpreter+" -c 'import {0}'").format(','.join(dict(versions).keys())))) != 0:
         import pdb; pdb.set_trace()
         #raise Exception("Install failed!")
