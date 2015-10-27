@@ -1,4 +1,5 @@
 from astropy import units as u
+from astropy.extern.six import iteritems
 try:
     from astropy.io import fits as pyfits
 except ImportError:
@@ -15,7 +16,7 @@ y[x==102.0] = 2.0
 y[x==105.0] = -1.0
 
 header = pyfits.Header()
-for k,v in {'CUNIT1':'MHz','CTYPE1':'FREQ','CDELT1':0.1,'CRVAL1':100.0,'CRPIX1':1.0}.iteritems():
+for k,v in iteritems({'CUNIT1':'MHz','CTYPE1':'FREQ','CDELT1':0.1,'CRVAL1':100.0,'CRPIX1':1.0}):
     header.update(k,v)
 
 HDU = pyfits.PrimaryHDU(data=y,header=header)
