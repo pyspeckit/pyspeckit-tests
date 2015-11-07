@@ -69,6 +69,12 @@ sp.specfit(fittype='ammonia', guesses=[21.57, 5.0, 14.469, 1.11, 37.8, 0.5],
            minpars=[2.73,2.73,10,0.1,0,0],
            limitedmin=[True,True,True,True,False,True], quiet=False,
           )
+
+F = False
+T=True
+assert np.all(sp.specfit.parinfo.limited == [(T,F), (T,F), (T,F), (F,F), (T,F)])
+assert np.all(sp.specfit.parinfo.fixed == [F,F,F,F,F,T]
+
 sp.specfit.plotresiduals()
 sp.plotter.figure.savefig(savedir+'nh3_ammonia_multifit.png')
 print("Guesses: ", sp.specfit.guesses)

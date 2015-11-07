@@ -46,6 +46,8 @@ def test_everything(savedir=''):
     tf = test_fitter.TestFitter()
     tf.setup_method()
     tf.test_fitter()
+    tf.test_set_pars()
+    tf.test_set_tied()
     tf.test_invalid_guess()
     tf.test_almost_invalid_guess()
 
