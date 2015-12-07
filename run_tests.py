@@ -140,6 +140,8 @@ def test_everything(savedir=''):
     
     # print("*****interactive_example_hr2421.py*****")
     # execute_file(os.path.join(dir_prefix,'interactive_example_hr2421.py'))
+    print("*****baseline_test_synth.py*****")
+    execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
     
     #WORKING EXAMPLES
     #runs 630 fits; left it out
