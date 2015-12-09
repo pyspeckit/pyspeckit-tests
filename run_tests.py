@@ -55,6 +55,14 @@ def test_everything(savedir=''):
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
 
+    from pyspeckit.spectrum.models.tests import test_astropy_models
+    test_astropy_models.test_powerlaw()
+    from pyspeckit.spectrum.models.tests import test_template
+    test_template.test_template()
+    test_template.test_template_withcont()
+    from pyspeckit.spectrum.models.tests import test_hyperfine
+    test_hyperfine.test_hyperfine()
+
     curpath = os.getcwd()
 
     dir_prefix = os.path.split(os.path.abspath(__file__))[0]
