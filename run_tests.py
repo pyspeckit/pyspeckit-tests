@@ -76,6 +76,8 @@ def test_everything(savedir=''):
         print("*****simple_fit_interactive.py*****")
         execute_file(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
 
+        print("*****baseline_test_synth.py*****")
+        execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
         print("*****test_cube_init.py*****")
         execute_file(os.path.join(dir_prefix,'test_cube_init.py'))
         print("*****test_Cube_fiteach.py*****")
@@ -140,8 +142,6 @@ def test_everything(savedir=''):
     
     # print("*****interactive_example_hr2421.py*****")
     # execute_file(os.path.join(dir_prefix,'interactive_example_hr2421.py'))
-    print("*****baseline_test_synth.py*****")
-    execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
     
     #WORKING EXAMPLES
     #runs 630 fits; left it out
