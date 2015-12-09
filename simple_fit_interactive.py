@@ -3,6 +3,7 @@ import pyspeckit
 import matplotlib
 import numpy as np
 from astropy import units as u
+from distutils.version import StrictVersion
 
 if not 'savedir' in globals():
     savedir = ''
@@ -100,7 +101,12 @@ event4.inaxes = spec.plotter.axis
 
 if hasattr(spec.plotter.figure.canvas,'toolbar'):
     spec.plotter.figure.canvas.toolbar.press_zoom(event2)
-    spec.plotter.figure.canvas.toolbar._xypress=[(event2.x,event2.y,spec.plotter.axis,0,spec.plotter.axis.viewLim.frozen(),spec.plotter.axis.transData.frozen())]
+    # mpl 1.5:
+    # lastx, lasty, a, ind, view = self._xypress[0]
+    if StrictVersion(matplotlib.__version__) >= StrictVersion('1.5.0'):
+        spec.plotter.figure.canvas.toolbar._xypress=[(event2.x,event2.y,spec.plotter.axis,0,spec.plotter.axis.viewLim.frozen())]
+    else:
+        spec.plotter.figure.canvas.toolbar._xypress=[(event2.x,event2.y,spec.plotter.axis,0,spec.plotter.axis.viewLim.frozen(),spec.plotter.axis.transData.frozen())]
     spec.plotter.figure.canvas.toolbar.drag_zoom(event3)
     spec.plotter.figure.canvas.toolbar.release_zoom(event4)
 
