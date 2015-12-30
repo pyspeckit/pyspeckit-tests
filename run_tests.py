@@ -62,6 +62,8 @@ def test_everything(savedir=''):
     test_template.test_template_withcont()
     from pyspeckit.spectrum.models.tests import test_hyperfine
     test_hyperfine.test_hyperfine()
+    from pyspeckit.spectrum.models.tests import test_hill5
+    test_hill5.test_hill5()
 
     curpath = os.getcwd()
 
