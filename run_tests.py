@@ -55,6 +55,9 @@ def test_everything(savedir=''):
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
 
+    from pyspeckit.cubes.tests import test_cubetools
+    test_cubetools.test_subimage_integ_header()
+
     from pyspeckit.spectrum.models.tests import test_astropy_models
     test_astropy_models.test_powerlaw()
     from pyspeckit.spectrum.models.tests import test_template
