@@ -67,6 +67,9 @@ def test_everything(savedir=''):
     test_hyperfine.test_hyperfine()
     from pyspeckit.spectrum.models.tests import test_hill5
     test_hill5.test_hill5()
+    from pyspeckit.spectrum.models.tests import test_ammonia
+    test_ammonia.test_ammonia_parlimits()
+    test_ammonia.test_ammonia_parlimits_fails()
 
     curpath = os.getcwd()
 
