@@ -27,7 +27,11 @@ def test_everything(savedir=''):
 
     warnings.simplefilter("error")
     warnings.filterwarnings("default", category=UserWarning)
-    warnings.filterwarnings("error", category=ResourceWarning)
+    try:
+        warnings.filterwarnings("error", category=ResourceWarning)
+    except NameError:
+        # python2.7 didn't have ResourceWarnings
+        pass
     warnings.filterwarnings("ignore",
                             message="elementwise == comparison failed; this will raise an error in the future.",
                             category=DeprecationWarning,
