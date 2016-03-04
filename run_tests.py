@@ -4,7 +4,9 @@ import subprocess
 import os
 import sys
 import matplotlib
+import warnings
 from astropy.utils.console import ProgressBar
+from astropy import wcs
 
 # for python 3
 def execute_file(fn, lglobals=None, llocals=None):
@@ -23,7 +25,39 @@ def import_file(fn):
 
 def test_everything(savedir=''):
 
-    matplotlib.use('TkAgg')
+    warnings.simplefilter("error")
+    warnings.filterwarnings("default", category=UserWarning)
+    warnings.filterwarnings("error", category=ResourceWarning)
+    warnings.filterwarnings("ignore",
+                            message="elementwise == comparison failed; this will raise an error in the future.",
+                            category=DeprecationWarning,
+                            module='matplotlib')
+    warnings.filterwarnings("ignore",
+                            message="inspect.getargspec() is deprecated, use inspect.signature() instead",
+                            category=DeprecationWarning,
+                            module='sympy') # actually in yt; I don't import sympy
+    warnings.filterwarnings("ignore",
+                            message="inspect.getargspec",
+                           )
+    warnings.filterwarnings("ignore",
+                            message="astropy.utils.compat.odict.OrderedDict is now deprecated - import OrderedDict from the collections module instead")
+    warnings.filterwarnings("ignore",
+                            message="The 'warn' method is deprecated, use 'warning' instead",
+                            category=DeprecationWarning,
+                            module='astropy-helpers'
+                           )
+    warnings.filterwarnings("ignore",
+                            message="The 'warn' method is deprecated, use 'warning' instead",
+                            category=DeprecationWarning,
+                            module='spectral-cube',
+                           )
+
+
+    with warnings.catch_warnings():
+        # ignore matplotlib's "use has no effect" warning
+        # on travis, at least, it should work
+        warnings.simplefilter('ignore')
+        matplotlib.use('TkAgg')
     from matplotlib.pyplot import ion,ioff
     if interactive:
         ion()
@@ -38,9 +72,12 @@ def test_everything(savedir=''):
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
 
-    from pyspeckit.spectrum.tests import test_eqw
-    test_eqw.test_eqw()
-    test_eqw.test_eqw_plot()
+    with warnings.catch_warnings():
+        # matplotlib raises errors related to color that we can't control
+        warnings.filterwarnings('ignore', 'elementwise == comparison failed')
+        from pyspeckit.spectrum.tests import test_eqw
+        test_eqw.test_eqw()
+        test_eqw.test_eqw_plot()
 
     from pyspeckit.spectrum.tests import test_fitter
     tf = test_fitter.TestFitter()
@@ -55,8 +92,11 @@ def test_everything(savedir=''):
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
 
-    from pyspeckit.cubes.tests import test_cubetools
-    test_cubetools.test_subimage_integ_header()
+    with warnings.catch_warnings():
+        # ignore FITS-related warnings
+        warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning)
+        from pyspeckit.cubes.tests import test_cubetools
+        test_cubetools.test_subimage_integ_header()
 
     from pyspeckit.spectrum.models.tests import test_astropy_models
     test_astropy_models.test_powerlaw()

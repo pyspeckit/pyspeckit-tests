@@ -2,6 +2,7 @@ from __future__ import print_function
 import numpy; print(numpy.geterr())
 import pyspeckit
 import matplotlib
+import warnings
 from astropy.io import fits
 
 if not 'interactive' in globals():
@@ -15,10 +16,13 @@ except NameError:
     raw_input = input
 
 
-try:
-    sp = pyspeckit.Spectrum('hr2421.fit')
-except Exception as ex:
-    assert ex.message == "'ergs s-1 cm-2 A-1' did not parse as unit: At col 0, ergs is not a valid unit. Did you mean erg?"
+with warnings.catch_warnings():
+    # do not allow warnings to raise exceptions here as they will be caught incorrectly
+    warnings.simplefilter('ignore')
+    try:
+        sp = pyspeckit.Spectrum('hr2421.fit')
+    except Exception as ex:
+        assert ex.message == "'ergs s-1 cm-2 A-1' did not parse as unit: At col 0, ergs is not a valid unit. Did you mean erg?"
 
 f = fits.open('hr2421.fit')
 f[0].header['BUNIT'] = 'erg s-1 cm-2 AA-1'
