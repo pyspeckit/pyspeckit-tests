@@ -51,6 +51,8 @@ def test_everything(savedir=''):
                             category=DeprecationWarning,
                             module='spectral-cube',
                            )
+    warnings.filterwarnings("ignore",
+                            message="More than 20 figures have been opened.")
 
 
     with warnings.catch_warnings():
