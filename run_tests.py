@@ -48,16 +48,7 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore",
                             message="The 'warn' method is deprecated, use 'warning' instead",
                             category=DeprecationWarning,
-                            module='astropy-helpers'
-                           )
-    warnings.filterwarnings("ignore",
-                            message="The 'warn' method is deprecated, use 'warning' instead",
-                            category=DeprecationWarning,
-                            module='spectral-cube',
-                           )
-    warnings.filterwarnings("ignore",
-                            category=DeprecationWarning,
-                            module='spectral-cube',
+                            module='spectral_cube',
                            )
     warnings.filterwarnings("ignore",
                             message="More than 20 figures have been opened.")
