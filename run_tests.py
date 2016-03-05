@@ -1,10 +1,12 @@
-interactive=False
 import numpy as np
-import subprocess
 import os
 import sys
 import matplotlib
+import warnings
+from astropy.extern.six.moves.urllib.error import URLError
 from astropy.utils.console import ProgressBar
+from astropy import wcs
+interactive=False
 
 # for python 3
 def execute_file(fn, lglobals=None, llocals=None):
@@ -23,24 +25,59 @@ def import_file(fn):
 
 def test_everything(savedir=''):
 
-    matplotlib.use('TkAgg')
+    warnings.simplefilter("error")
+    warnings.filterwarnings("default", category=UserWarning)
+    try:
+        warnings.filterwarnings("error", category=ResourceWarning)
+    except NameError:
+        # python2.7 didn't have ResourceWarnings
+        pass
+    warnings.filterwarnings("ignore",
+                            message="elementwise == comparison failed; this will raise an error in the future.",
+                            category=DeprecationWarning,
+                            module='matplotlib')
+    warnings.filterwarnings("ignore",
+                            message="inspect.getargspec() is deprecated, use inspect.signature() instead",
+                            category=DeprecationWarning,
+                            module='sympy') # actually in yt; I don't import sympy
+    warnings.filterwarnings("ignore",
+                            message="inspect.getargspec",
+                           )
+    warnings.filterwarnings("ignore",
+                            message="astropy.utils.compat.odict.OrderedDict is now deprecated - import OrderedDict from the collections module instead")
+    warnings.filterwarnings("ignore",
+                            message="The 'warn' method is deprecated, use 'warning' instead",
+                            category=DeprecationWarning,
+                            module='spectral_cube',
+                           )
+    warnings.filterwarnings("ignore",
+                            message="More than 20 figures have been opened.")
+    # I get some un-reproducible errors on travis, e.g.:
+    # https://travis-ci.org/keflavich/pyspeckit/jobs/113880743
+    warnings.filterwarnings("default",
+                            category=RuntimeWarning)
+    warnings.filterwarnings("ignore",
+                            message="Parent module",
+                            category=RuntimeWarning)
+
+
+    with warnings.catch_warnings():
+        # ignore matplotlib's "use has no effect" warning
+        # on travis, at least, it should work
+        warnings.simplefilter('ignore')
+        matplotlib.use('TkAgg')
     from matplotlib.pyplot import ion,ioff
     if interactive:
         ion()
     else:
         ioff()
 
-    #test_units()
-    from pyspeckit.spectrum.tests import test_units
-    tu = test_units.TestUnits()
-    for p in ProgressBar(test_units.params):
-        #print("Testing unit conversion with {0}".format(p))
-        tu.test_convert_units(*p)
-        tu.test_convert_back(*p)
-
-    from pyspeckit.spectrum.tests import test_eqw
-    test_eqw.test_eqw()
-    test_eqw.test_eqw_plot()
+    with warnings.catch_warnings():
+        # matplotlib raises errors related to color that we can't control
+        warnings.filterwarnings('ignore', 'elementwise == comparison failed')
+        from pyspeckit.spectrum.tests import test_eqw
+        test_eqw.test_eqw()
+        test_eqw.test_eqw_plot()
 
     from pyspeckit.spectrum.tests import test_fitter
     tf = test_fitter.TestFitter()
@@ -55,9 +92,19 @@ def test_everything(savedir=''):
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
 
-    from pyspeckit.cubes.tests import test_cubetools
-    test_cubetools.test_subimage_integ_header()
+    with warnings.catch_warnings():
+        # ignore FITS-related warnings
+        warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning)
+        from pyspeckit.cubes.tests import test_cubetools
+        try:
+            test_cubetools.test_subimage_integ_header()
+        except URLError:
+            print("NO INTERNET CONNECTION - skipping test")
 
+    #from pyspeckit.spectrum.models.tests import test_moments
+    #for name in test_moments.names:
+    #    print("testing moments for {0}".format(name))
+    #    test_moments.test_moments(name)
     from pyspeckit.spectrum.models.tests import test_astropy_models
     test_astropy_models.test_powerlaw()
     from pyspeckit.spectrum.models.tests import test_template
@@ -71,6 +118,19 @@ def test_everything(savedir=''):
     test_ammonia.test_ammonia_parlimits()
     test_ammonia.test_ammonia_parlimits_fails()
 
+    #test_units()
+    from pyspeckit.spectrum.tests import test_units
+    tu = test_units.TestUnits()
+    for p in ProgressBar(test_units.params):
+        #print("Testing unit conversion with {0}".format(p))
+        tu.test_convert_units(*p)
+        tu.test_convert_back(*p)
+
+
+
+    #### SCRIPT TESTS BELOW ####
+
+
     curpath = os.getcwd()
 
     dir_prefix = os.path.split(os.path.abspath(__file__))[0]
@@ -82,6 +142,9 @@ def test_everything(savedir=''):
     if not run_only_examples:
 
 
+        print("Running test directory scripts")
+        print("dir_prefix={0}".format(dir_prefix))
+
         print("*****vega_echelle.py*****")
         # because python3 can't execfile, we have to import wav2rgb here and pass it in
         import wav2rgb
@@ -91,6 +154,9 @@ def test_everything(savedir=''):
         execute_file(os.path.join(dir_prefix,'simple_fit_example.py'),{'interactive':interactive,'savedir':savedir})
         print("*****simple_fit_interactive.py*****")
         execute_file(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
+
+        print("*****test_moments.py*****")
+        execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
         print("*****baseline_test_synth.py*****")
         execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
@@ -132,9 +198,6 @@ def test_everything(savedir=''):
 
         print("*****test_spectral_cube.py*****")
         execute_file(os.path.join(dir_prefix,'test_spectral_cube.py'))
-
-        print("*****test_moments.py*****")
-        execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
         print("*****test_masking.py*****")
         execute_file(os.path.join(dir_prefix,'test_masking.py'))
