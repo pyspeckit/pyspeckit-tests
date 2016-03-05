@@ -1,12 +1,11 @@
-interactive=False
 import numpy as np
-import subprocess
 import os
 import sys
 import matplotlib
 import warnings
 from astropy.utils.console import ProgressBar
 from astropy import wcs
+interactive=False
 
 # for python 3
 def execute_file(fn, lglobals=None, llocals=None):
@@ -70,14 +69,6 @@ def test_everything(savedir=''):
     else:
         ioff()
 
-    #test_units()
-    from pyspeckit.spectrum.tests import test_units
-    tu = test_units.TestUnits()
-    for p in ProgressBar(test_units.params):
-        #print("Testing unit conversion with {0}".format(p))
-        tu.test_convert_units(*p)
-        tu.test_convert_back(*p)
-
     with warnings.catch_warnings():
         # matplotlib raises errors related to color that we can't control
         warnings.filterwarnings('ignore', 'elementwise == comparison failed')
@@ -104,6 +95,10 @@ def test_everything(savedir=''):
         from pyspeckit.cubes.tests import test_cubetools
         test_cubetools.test_subimage_integ_header()
 
+    #from pyspeckit.spectrum.models.tests import test_moments
+    #for name in test_moments.names:
+    #    print("testing moments for {0}".format(name))
+    #    test_moments.test_moments(name)
     from pyspeckit.spectrum.models.tests import test_astropy_models
     test_astropy_models.test_powerlaw()
     from pyspeckit.spectrum.models.tests import test_template
@@ -117,6 +112,19 @@ def test_everything(savedir=''):
     test_ammonia.test_ammonia_parlimits()
     test_ammonia.test_ammonia_parlimits_fails()
 
+    #test_units()
+    from pyspeckit.spectrum.tests import test_units
+    tu = test_units.TestUnits()
+    for p in ProgressBar(test_units.params):
+        #print("Testing unit conversion with {0}".format(p))
+        tu.test_convert_units(*p)
+        tu.test_convert_back(*p)
+
+
+
+    #### SCRIPT TESTS BELOW ####
+
+
     curpath = os.getcwd()
 
     dir_prefix = os.path.split(os.path.abspath(__file__))[0]
@@ -127,6 +135,12 @@ def test_everything(savedir=''):
     run_only_examples = False
     if not run_only_examples:
 
+
+        print("Running test directory scripts")
+        print("dir_prefix={0}".format(dir_prefix))
+
+        print("*****test_moments.py*****")
+        execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
         print("*****vega_echelle.py*****")
         # because python3 can't execfile, we have to import wav2rgb here and pass it in
@@ -178,9 +192,6 @@ def test_everything(savedir=''):
 
         print("*****test_spectral_cube.py*****")
         execute_file(os.path.join(dir_prefix,'test_spectral_cube.py'))
-
-        print("*****test_moments.py*****")
-        execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
         print("*****test_masking.py*****")
         execute_file(os.path.join(dir_prefix,'test_masking.py'))
