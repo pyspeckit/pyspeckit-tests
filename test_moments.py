@@ -1,13 +1,14 @@
 from __future__ import print_function
+import numpy as np
+from astropy import units as u
+from ..spectrum.units import SpectroscopicAxis
+from .. import Spectrum
+
 ########################################################################
 # This test checks if the moments() method for every model             #
 # in Registry.multifitters produces the correct number of paramerters. #
 ########################################################################
 
-from pyspeckit.spectrum.units import SpectroscopicAxis
-from pyspeckit import Spectrum
-import numpy as np
-from astropy import units as u
 
 def test_moments():
     xvals = np.linspace(-100,100,200) * u.km/u.s
