@@ -143,9 +143,6 @@ def test_everything(savedir=''):
         print("Running test directory scripts")
         print("dir_prefix={0}".format(dir_prefix))
 
-        print("*****test_moments.py*****")
-        execute_file(os.path.join(dir_prefix,'test_moments.py'))
-
         print("*****vega_echelle.py*****")
         # because python3 can't execfile, we have to import wav2rgb here and pass it in
         import wav2rgb
@@ -155,6 +152,9 @@ def test_everything(savedir=''):
         execute_file(os.path.join(dir_prefix,'simple_fit_example.py'),{'interactive':interactive,'savedir':savedir})
         print("*****simple_fit_interactive.py*****")
         execute_file(os.path.join(dir_prefix,'simple_fit_interactive.py'),{'interactive':interactive,'savedir':savedir})
+
+        print("*****test_moments.py*****")
+        execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
         print("*****baseline_test_synth.py*****")
         execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
