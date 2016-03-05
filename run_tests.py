@@ -56,13 +56,17 @@ def test_everything(savedir=''):
                             module='spectral-cube',
                            )
     warnings.filterwarnings("ignore",
-                            message="More than 20 figures have been opened.")
+                            category=DeprecationWarning,
+                            module='spectral-cube',
+                           )
     warnings.filterwarnings("ignore",
-                            message="Parent module",
-                            category=RuntimeWarning)
+                            message="More than 20 figures have been opened.")
     # I get some un-reproducible errors on travis, e.g.:
     # https://travis-ci.org/keflavich/pyspeckit/jobs/113880743
     warnings.filterwarnings("default",
+                            category=RuntimeWarning)
+    warnings.filterwarnings("ignore",
+                            message="Parent module",
                             category=RuntimeWarning)
 
 
