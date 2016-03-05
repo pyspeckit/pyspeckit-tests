@@ -1,8 +1,8 @@
 from __future__ import print_function
 import numpy as np
 from astropy import units as u
-from ..spectrum.units import SpectroscopicAxis
-from .. import Spectrum
+from pyspeckit import Spectrum
+from pyspeckit.spectrum.units import SpectroscopicAxis
 
 ########################################################################
 # This test checks if the moments() method for every model             #
