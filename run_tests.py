@@ -60,6 +60,10 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore",
                             message="Parent module",
                             category=RuntimeWarning)
+    # I get some un-reproducible errors on travis, e.g.:
+    # https://travis-ci.org/keflavich/pyspeckit/jobs/113880743
+    warnings.filterwarnings("default",
+                            category=RuntimeWarning)
 
 
     with warnings.catch_warnings():
