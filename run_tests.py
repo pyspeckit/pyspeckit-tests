@@ -57,6 +57,9 @@ def test_everything(savedir=''):
                            )
     warnings.filterwarnings("ignore",
                             message="More than 20 figures have been opened.")
+    warnings.filterwarnings("ignore",
+                            message="Parent module",
+                            category=RuntimeWarning)
 
 
     with warnings.catch_warnings():
