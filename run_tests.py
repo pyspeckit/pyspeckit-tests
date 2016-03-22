@@ -88,6 +88,10 @@ def test_everything(savedir=''):
     tf.test_invalid_guess()
     tf.test_almost_invalid_guess()
 
+    from pyspeckit.spectrum.readers.tests import test_specutils_reading
+    if test_specutils_reading.SPECUTILS_OK:
+        test_specutils_reading.test_specutils_aao_reader()
+
 
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
     test_get_neighbors()
