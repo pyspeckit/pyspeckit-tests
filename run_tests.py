@@ -90,7 +90,7 @@ def test_everything(savedir=''):
 
     from pyspeckit.spectrum.readers.tests import test_specutils_reading
     if test_specutils_reading.SPECUTILS_OK:
-        test_specutils_reading.test_specutils_aao_reader()
+        test_specutils_reading.test_specutils_aao_reader_multiple()
         test_specutils_reading.test_specutils_aao_reader_single()
 
 
@@ -130,6 +130,15 @@ def test_everything(savedir=''):
         #print("Testing unit conversion with {0}".format(p))
         tu.test_convert_units(*p)
         tu.test_convert_back(*p)
+    tu.test_equivalencies_1()
+    for convention in ProgressBar(test_units.convention):
+        tu.test_equivalencies_2(convention)
+        tu.test_equivalencies_3(convention)
+    tu.test_initialize_units()
+    tu.test_convert_units2()
+    tu.test_in_range()
+    tu.test_x_to_pix()
+    tu.test_comparison()
 
 
 
