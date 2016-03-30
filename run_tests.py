@@ -125,7 +125,7 @@ def test_everything(savedir=''):
 
     #test_units()
     from pyspeckit.spectrum.tests import test_units
-    tu = test_units.TestUnits()
+    tu = test_units.TestUnits.setup_class()()
     for p in ProgressBar(test_units.params):
         #print("Testing unit conversion with {0}".format(p))
         tu.test_convert_units(*p)
