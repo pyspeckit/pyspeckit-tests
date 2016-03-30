@@ -97,6 +97,7 @@ def test_everything(savedir=''):
             # DeprecationWarning: numpy boolean subtract, the `-` operator, is deprecated, use the bitwise_xor, the `^` operator, or the logical_xor function instead.
             # but I can't reproduce it interactively
             # (sp[0] and sp[1] are *NOT* booleans; I checked!!!)
+            # Ah, ok, actually, this is probably happening in operation_wrapper comparison region somehow
             test_specutils_reading.test_specutils_aao_reader_dontallowmismatchdiffs()
         test_specutils_reading.test_specutils_aao_reader_multiple()
         test_specutils_reading.test_specutils_aao_reader_single()
