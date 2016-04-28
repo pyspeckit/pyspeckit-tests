@@ -110,10 +110,10 @@ def test_everything(savedir=''):
         # ignore FITS-related warnings
         warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning)
         from pyspeckit.cubes.tests import test_cubetools
-        try:
-            test_cubetools.test_subimage_integ_header()
-        except URLError:
-            print("NO INTERNET CONNECTION - skipping test")
+        test_cubetools.test_subimage_integ_header()
+        test_cubetools.test_fiteach()
+        test_cubetools.test_get_modelcube()
+        test_cubetools.test_get_modelcube_badpar()
 
     #from pyspeckit.spectrum.models.tests import test_moments
     #for name in test_moments.names:
