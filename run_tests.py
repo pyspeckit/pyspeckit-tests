@@ -82,6 +82,7 @@ def test_everything(savedir=''):
     from pyspeckit.spectrum.tests import test_fitter
     tf = test_fitter.TestFitter()
     tf.setup_method()
+    tf.test_copy()
     tf.test_fitter()
     tf.test_set_pars()
     tf.test_set_tied()
@@ -114,6 +115,7 @@ def test_everything(savedir=''):
         test_cubetools.test_fiteach()
         test_cubetools.test_get_modelcube()
         test_cubetools.test_get_modelcube_badpar()
+        test_cubetools.test_registry_inheritance()
 
     #from pyspeckit.spectrum.models.tests import test_moments
     #for name in test_moments.names:
