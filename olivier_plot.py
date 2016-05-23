@@ -123,7 +123,7 @@ def fitrow(n):
 
 def savefit(n,pars):
     filename='khipos.dat'
-    with open(filename 'a') as f:
+    with open(filename, 'a') as f:
         savetxt(f,[n]+pars, fmt='%1.6e', newline='\t')
         print('', file=f)
 
