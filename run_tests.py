@@ -133,6 +133,8 @@ def test_everything(savedir=''):
     from pyspeckit.spectrum.models.tests import test_ammonia
     test_ammonia.test_ammonia_parlimits()
     test_ammonia.test_ammonia_parlimits_fails()
+    test_ammonia.test_cold_ammonia()
+    test_ammonia.test_self_fit()
 
     #test_units()
     from pyspeckit.spectrum.tests import test_units
