@@ -152,6 +152,7 @@ def test_everything(savedir=''):
     tu.test_in_range()
     tu.test_x_to_pix()
     tu.test_comparison()
+    tu.test_cdelt()
 
 
 
