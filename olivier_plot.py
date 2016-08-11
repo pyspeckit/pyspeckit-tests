@@ -2,7 +2,7 @@ from __future__ import print_function
 import pyspeckit
 from pylab import *
 from numpy import *
-from pyspeckit.spectrum.models.inherited_lorentzian import *
+from pyspeckit.spectrum.models.inherited_lorentzian import lorentzian_fitter
 
 x,Rexx,Imxx,Rexy,Imxy=loadtxt('KhiXD1281286HzFreq.txt',usecols=(0,1,2,3,4),unpack=True)
 
@@ -24,7 +24,7 @@ def is_local_maximum(amp, channel):
     if (amp[channel] > amp[channel-1] and
         amp[channel] > amp[channel+1] and
         amp[channel+1] > amp[channel+3] and
-        amp[channel-1] > amp[channel-3] ):
+        amp[channel-1] > amp[channel-3]):
         return True
     else:
         return False
@@ -90,9 +90,11 @@ def fitrow(n):
     xarr = pyspeckit.spectrum.units.SpectroscopicAxis(X)
     yarr = pyspeckit.spectrum.units.SpectroscopicAxis(Y)
     sp = pyspeckit.Spectrum(xarr=xarr,data=yarr)
-    sp.specfit.Registry.add_fitter ('lorentzian',
-                                    lorentzian_fitter(multisingle='multi'),
-                                    3,multisingle='multi',key='L')
+    sp.specfit.Registry.add_fitter('lorentzian',
+                                   lorentzian_fitter(),
+                                   3,
+                                   multisingle='multi',
+                                   key='L')
     ## sp.Registry.add_fitter ('lorentzian',lorentzian_fitter(multisingle='multi'),3,multisingle='multi',key='L')
     sp.plotter()
     ## sp.smooth(2)
