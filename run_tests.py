@@ -116,6 +116,8 @@ def test_everything(savedir=''):
         test_cubetools.test_get_modelcube()
         test_cubetools.test_get_modelcube_badpar()
         test_cubetools.test_registry_inheritance()
+        test_cubetools.test_noerror_cube()
+        test_cubetools.test_slice_header()
 
     #from pyspeckit.spectrum.models.tests import test_moments
     #for name in test_moments.names:
