@@ -1,6 +1,7 @@
 from __future__ import print_function
 from astropy import units as u
 from astropy.extern.six import iteritems
+import astropy
 try:
     from astropy.io import fits as pyfits
 except ImportError:
@@ -22,7 +23,10 @@ for k,v in iteritems({'CUNIT1':'MHz','CTYPE1':'FREQ','CDELT1':0.1,'CRVAL1':100.0
 
 HDU = pyfits.PrimaryHDU(data=y,header=header)
 
-HDU.writeto('test_freqswitch.fits',overwrite=True)
+if astropy.version.major >= 2 or (astropy.version.major==1 and astropy.version.minor>=3):
+    HDU.writeto('test_freqswitch.fits',overwrite=True)
+else:
+    HDU.writeto('test_freqswitch.fits',clobber=True)
 
 import pyspeckit
 import pylab
