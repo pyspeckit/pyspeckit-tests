@@ -22,7 +22,7 @@ for k,v in iteritems({'CUNIT1':'MHz','CTYPE1':'FREQ','CDELT1':0.1,'CRVAL1':100.0
 
 HDU = pyfits.PrimaryHDU(data=y,header=header)
 
-HDU.writeto('test_freqswitch.fits',clobber=True)
+HDU.writeto('test_freqswitch.fits',overwrite=True)
 
 import pyspeckit
 import pylab
