@@ -119,6 +119,9 @@ def test_everything(savedir=''):
         test_cubetools.test_noerror_cube()
         test_cubetools.test_slice_header()
 
+        from pyspeckit.cubes.tests import test_spectralcube
+        test_spectralcube.test_get_spectrum()
+
     #from pyspeckit.spectrum.models.tests import test_moments
     #for name in test_moments.names:
     #    print("testing moments for {0}".format(name))
