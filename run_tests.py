@@ -82,12 +82,15 @@ def test_everything(savedir=''):
     from pyspeckit.spectrum.tests import test_fitter
     tf = test_fitter.TestFitter()
     tf.setup_method()
+    tf.test_init()
     tf.test_copy()
     tf.test_fitter()
     tf.test_set_pars()
     tf.test_set_tied()
     tf.test_invalid_guess()
     tf.test_almost_invalid_guess()
+    tf.test_multipeak()
+    tf.test_multipeak_tiny()
 
     from pyspeckit.spectrum.readers.tests import test_specutils_reading
     if test_specutils_reading.SPECUTILS_OK:
