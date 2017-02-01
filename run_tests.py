@@ -60,6 +60,16 @@ def test_everything(savedir=''):
                             message="Parent module",
                             category=RuntimeWarning)
 
+    warnings.filterwarnings("ignore",
+                            module='IPython',
+                            category=DeprecationWarning)
+    warnings.filterwarnings("ignore",
+                            module='ipython',
+                            category=DeprecationWarning)
+    warnings.filterwarnings("ignore",
+                            message="IOStream",
+                            category=DeprecationWarning)
+
 
     with warnings.catch_warnings():
         # ignore matplotlib's "use has no effect" warning
