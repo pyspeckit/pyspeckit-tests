@@ -134,7 +134,7 @@ def test_everything(savedir=''):
         test_cubetools.test_slice_header()
 
         from pyspeckit.cubes.tests import test_spectralcube
-        test_spectralcube.test_get_spectrum()
+        run_tests(test_spectralcube)
 
     #from pyspeckit.spectrum.models.tests import test_moments
     #for name in test_moments.names:
