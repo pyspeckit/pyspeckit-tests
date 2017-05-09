@@ -126,14 +126,15 @@ def test_everything(savedir=''):
         # ignore FITS-related warnings
         warnings.filterwarnings('ignore', category=wcs.FITSFixedWarning)
         from pyspeckit.cubes.tests import test_cubetools
-        test_cubetools.test_subimage_integ_header()
-        test_cubetools.test_fiteach()
-        test_cubetools.test_get_modelcube()
-        test_cubetools.test_get_modelcube_badpar()
-        test_cubetools.test_registry_inheritance()
-        test_cubetools.test_noerror_cube()
-        test_cubetools.test_slice_header()
-        test_cubetools.test_nonuniform_chan_weights()
+        run_tests(test_cubetools)
+        #test_cubetools.test_subimage_integ_header()
+        #test_cubetools.test_fiteach()
+        #test_cubetools.test_get_modelcube()
+        #test_cubetools.test_get_modelcube_badpar()
+        #test_cubetools.test_registry_inheritance()
+        #test_cubetools.test_noerror_cube()
+        #test_cubetools.test_slice_header()
+        #test_cubetools.test_nonuniform_chan_weights()
 
         from pyspeckit.cubes.tests import test_spectralcube
         run_tests(test_spectralcube)
