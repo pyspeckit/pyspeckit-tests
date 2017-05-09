@@ -133,6 +133,7 @@ def test_everything(savedir=''):
         test_cubetools.test_registry_inheritance()
         test_cubetools.test_noerror_cube()
         test_cubetools.test_slice_header()
+        test_cubetools.test_nonuniform_chan_weights()
 
         from pyspeckit.cubes.tests import test_spectralcube
         run_tests(test_spectralcube)
