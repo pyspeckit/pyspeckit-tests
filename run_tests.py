@@ -301,6 +301,9 @@ def test_everything(savedir=''):
     print("*****ammonia_vtau_multitem_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_multitem_example.py'))
 
+    print("*****TEST_wrapper_nh3.py*****")
+    execute_file(os.path.join(dir_prefix,'TEST_wrapper_nh3.py'))
+
     print("Success!  Or at least, no exceptions...")
     os.chdir(curpath)
 
