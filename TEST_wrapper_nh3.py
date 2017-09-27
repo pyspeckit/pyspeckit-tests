@@ -1,4 +1,5 @@
 from __future__ import print_function
+import numpy as np
 from astropy import units as u
 import pyspeckit
 from pyspeckit.wrappers.fitnh3 import fitnh3tkin
@@ -23,6 +24,23 @@ if __name__ == "__main__":
                                    fignum=6, quiet=True, rebase=True)
     print(spectra1.specfit.Registry)
     print(spectra1.specfit.Registry.multifitters['ammonia'])
+
+    for sp in spdict1.values():
+        assert sp.xarr.in_range(40*u.km/u.s)
+
+    np.testing.assert_almost_equal(spectra1.specfit.parinfo['trot0'].value, 18.772, 3)
+    np.testing.assert_almost_equal(spectra1.specfit.parinfo['width0'].value, 1.2635, 3)
+
+    # do it manually
+    sp11 = pyspeckit.Spectrum(filenames['oneone'])
+    sp22 = pyspeckit.Spectrum(filenames['twotwo'])
+    sp33 = pyspeckit.Spectrum(filenames['threethree'])
+    sp11.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['oneone']
+    sp22.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['twotwo']
+    sp33.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['threethree']
+    inputdict={'oneone':sp11,'twotwo':sp22,'threethree':sp33}
+    spf = pyspeckit.wrappers.fitnh3.fitnh3tkin(inputdict)
+
 
     # a sanity check
     """
@@ -67,6 +85,8 @@ if __name__ == "__main__":
     # for some reason, fixed breaks multiparameter mpfit
     # fixed=[False, False, False, False, False, True]*2
 
+    for sp in spdict4.values():
+        assert sp.xarr.in_range(40*u.km/u.s)
 
     if False:
         pl.figure(7, figsize=[16, 12])
