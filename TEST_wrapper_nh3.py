@@ -35,10 +35,13 @@ if __name__ == "__main__":
     sp11 = pyspeckit.Spectrum(filenames['oneone'])
     sp22 = pyspeckit.Spectrum(filenames['twotwo'])
     sp33 = pyspeckit.Spectrum(filenames['threethree'])
+    sp44 = pyspeckit.Spectrum(filenames['fourfour'])
     sp11.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['oneone']
     sp22.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['twotwo']
     sp33.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['threethree']
-    inputdict={'oneone':sp11,'twotwo':sp22,'threethree':sp33}
+    sp44.xarr.refX = pyspeckit.spectrum.models.ammonia.freq_dict['fourfour']
+    inputdict = {'oneone':sp11, 'twotwo':sp22, 'threethree':sp33,
+                 'fourfour':sp44}
     spf = pyspeckit.wrappers.fitnh3.fitnh3tkin(inputdict)
 
 
