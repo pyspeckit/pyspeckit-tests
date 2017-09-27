@@ -253,6 +253,9 @@ def test_everything(savedir=''):
         print("*****test_masking.py*****")
         execute_file(os.path.join(dir_prefix,'test_masking.py'))
 
+        print("*****TEST_wrapper_nh3.py*****")
+        execute_file(os.path.join(dir_prefix,'TEST_wrapper_nh3.py'))
+
         print("*****convert_to_unit regression test PR#12*****")
         sys.path.append(dir_prefix)
         from test_convert_to_unit import test_convert_to_unit
@@ -300,9 +303,6 @@ def test_everything(savedir=''):
     execute_file(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
     print("*****ammonia_vtau_multitem_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_multitem_example.py'))
-
-    print("*****TEST_wrapper_nh3.py*****")
-    execute_file(os.path.join(dir_prefix,'TEST_wrapper_nh3.py'))
 
     print("Success!  Or at least, no exceptions...")
     os.chdir(curpath)
