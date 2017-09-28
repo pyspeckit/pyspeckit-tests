@@ -104,19 +104,20 @@ def test_everything(savedir=''):
     #tf.test_multipeak()
     #tf.test_multipeak_tiny()
 
-    from pyspeckit.spectrum.readers.tests import test_specutils_reading
-    if test_specutils_reading.SPECUTILS_OK:
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore")
-            # this is a really weird one:
-            # I get this error:
-            # DeprecationWarning: numpy boolean subtract, the `-` operator, is deprecated, use the bitwise_xor, the `^` operator, or the logical_xor function instead.
-            # but I can't reproduce it interactively
-            # (sp[0] and sp[1] are *NOT* booleans; I checked!!!)
-            # Ah, ok, actually, this is probably happening in operation_wrapper comparison region somehow
-            test_specutils_reading.test_specutils_aao_reader_dontallowmismatchdiffs()
-        test_specutils_reading.test_specutils_aao_reader_multiple()
-        test_specutils_reading.test_specutils_aao_reader_single()
+    #specutils is legacy & broken now
+    # from pyspeckit.spectrum.readers.tests import test_specutils_reading
+    # if test_specutils_reading.SPECUTILS_OK:
+    #     with warnings.catch_warnings():
+    #         warnings.filterwarnings("ignore")
+    #         # this is a really weird one:
+    #         # I get this error:
+    #         # DeprecationWarning: numpy boolean subtract, the `-` operator, is deprecated, use the bitwise_xor, the `^` operator, or the logical_xor function instead.
+    #         # but I can't reproduce it interactively
+    #         # (sp[0] and sp[1] are *NOT* booleans; I checked!!!)
+    #         # Ah, ok, actually, this is probably happening in operation_wrapper comparison region somehow
+    #         test_specutils_reading.test_specutils_aao_reader_dontallowmismatchdiffs()
+    #     test_specutils_reading.test_specutils_aao_reader_multiple()
+    #     test_specutils_reading.test_specutils_aao_reader_single()
 
 
     from pyspeckit.cubes.SpectralCube import test_get_neighbors
