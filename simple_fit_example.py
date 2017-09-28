@@ -1,5 +1,9 @@
+import numpy as np
 import pyspeckit
 from astropy import units as u
+import warnings
+warnings.filterwarnings('ignore', category=np.ma.core.MaskedArrayFutureWarning)
+
 
 if not 'interactive' in globals():
     interactive=False
