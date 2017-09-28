@@ -48,8 +48,8 @@ sp2.xarr.xtype = 'wavelength'
 for i in range(1):
     sp2.data = sp.data + np.random.randn(sp.data.size)*sp.error
     sp2.plotter(xmin=0, xmax=0.15, ymin=0.9, ymax=2.1, errstyle='bars')
-    sp2.plotter.axis.set_ylabel('Flux F$_{\lambda}$')
-    sp2.plotter.axis.set_xlabel('Wavelength ($\mu$m) - $W_0$')
+    sp2.plotter.axis.set_ylabel(r'Flux F$_{\lambda}$')
+    sp2.plotter.axis.set_xlabel(r'Wavelength ($\mu$m) - $W_0$')
     sp2.baseline(subtract=False, save=False, highlight_fitregion=True, exclude=[0.06,0.09], order=1)
     coeffs = sp2.baseline.baselinepars
     print(coeffs[0])
