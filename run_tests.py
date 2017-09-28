@@ -28,6 +28,7 @@ def test_everything(savedir=''):
 
     warnings.simplefilter("error")
     warnings.filterwarnings("default", category=UserWarning)
+    warnings.filterwarnings("ignore", category=ImportWarning) # for a cython bug: https://github.com/astropy/astropy/issues/6025
     try:
         warnings.filterwarnings("error", category=ResourceWarning)
     except NameError:
