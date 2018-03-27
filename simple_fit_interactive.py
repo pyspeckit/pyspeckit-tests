@@ -43,7 +43,7 @@ def events_(MouseEvent=matplotlib.backend_bases.MouseEvent,
 events = events_()
 
 for ev in events:
-    print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
+    print("Events x={0},y={1},button={2}".format(ev.xdata,ev.ydata,ev.button))
     spec.baseline.event_manager(ev)
 
 spec.baseline.highlight_fitregion()
@@ -54,10 +54,6 @@ xpoints = [0,50,26,28,28]
 ypoints = [0, 0, 0.14, 0.07, 0]
 buttons = [1,1,2,2,3]
 xy = xy_(transform, xpoints, ypoints)
-
-for ev in events:
-    print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
-    spec.baseline.event_manager(ev)
 
 def events_(KeyEvent=matplotlib.backend_bases.KeyEvent,
             canvas=spec.plotter.axis.figure.canvas,
@@ -72,15 +68,16 @@ for ev in events:
     print("Events x={0},y={1}".format(ev.xdata,ev.ydata))
     spec.specfit.event_manager(ev)
 
-
 print("Includemask before excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
+assert spec.baseline.includemask.sum() > 0
 spec.baseline(excludefit=True)
 spec.baseline.highlight_fitregion()
 print("Includemask after excludefit: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
+assert spec.baseline.includemask.sum() > 0
 spec.specfit(guesses=spec.specfit.modelpars)
 
 np.testing.assert_array_almost_equal(spec.specfit.parinfo.values,
-                                     np.array([  0.149995,  27.160603,   0.930399]))
+                                     np.array([0.149995,  27.160603,   0.930399]))
 
 
 spec.plotter.figure.savefig(savedir+"simple_fit_interactive_HCOp.png")
@@ -120,14 +117,20 @@ else:
 #spec.plotter.debug=True
 print("Includemask before excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 assert spec.baseline.includemask.sum() == 507
-spec.baseline(excludefit=True,use_window_limits=True,highlight=True)
+assert spec.plotter.xmin < -286*u.km/u.s
+assert spec.plotter.xmax > -286*u.km/u.s
+np.testing.assert_array_almost_equal(spec.plotter.axis.get_xlim(), (-20.0, 75.0))
+spec.baseline(excludefit=True, use_window_limits=True, highlight=True)
+np.testing.assert_array_almost_equal(spec.plotter.axis.get_xlim(), (-20.0, 75.0))
+assert spec.plotter.xmin < -10*u.km/u.s
+assert spec.plotter.xmax > 60*u.km/u.s
 spec.baseline.highlight_fitregion()
 print("Includemask after excludefit with window limits: ",spec.xarr[spec.baseline.includemask]," length = ",spec.baseline.includemask.sum())
 # total 512 pixels, 5 (or 7?) should be excluded inside, 80 should be available
 assert spec.baseline.includemask.sum() == 80
 spec.specfit(guesses='moments', use_window_limits=True)
 np.testing.assert_array_almost_equal(spec.specfit.parinfo.values,
-                                     np.array([  0.151523,  27.162823,   0.942997]))
+                                     np.array([0.151523,  27.162823,   0.942997]))
 
 # Regression test: make sure baseline selection works
 # this should *NOT* be 107!  107 is ALL data between -100 and +20
