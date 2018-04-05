@@ -303,6 +303,8 @@ def test_everything(savedir=''):
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print("*****ammonia_fit_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
+    print("*****ammonia_fit_example_wrapper.py*****")
+    execute_file(os.path.join(dir_prefix,'ammonia_fit_example_wrapper.py'))    
     print("*****ammonia_vtau_multitem_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_multitem_example.py'))
 
