@@ -70,7 +70,7 @@ except ImportError:
 
 sp.specfit(interactive=True)
 if interactive:
-    raw_input('Press enter to print(guesses and best fit and end code'))
+    raw_input('Press enter to print(guesses and best fit and end code)')
 else:
     event1 = matplotlib.backend_bases.MouseEvent('button_press_event', sp.plotter.axis.figure.canvas,257,316,button=1)
     event2 = matplotlib.backend_bases.MouseEvent('button_press_event', sp.plotter.axis.figure.canvas,732,280,button=1)
