@@ -142,7 +142,7 @@ def test_everything(savedir=''):
 
             from pyspeckit.cubes.tests import test_spectralcube
             run_tests(test_spectralcube)
-        except Import Error:
+        except ImportError:
             pass
 
     #from pyspeckit.spectrum.models.tests import test_moments
