@@ -13,7 +13,7 @@ x = np.linspace(0.0,0.15, length)
 baseline = np.polyval([0.005,1], np.arange(length))
 y = np.exp(-(x-0.075)**2 / (2*0.005**2)) + baseline
 e = np.repeat(0.1, length)
-sp = pyspeckit.Spectrum(xarr=x, data=y, error=e, xarrkwargs={'unit':'um'})
+sp = pyspeckit.Spectrum(xarr=x, data=y, error=e, xarrkwargs={'unit':'um'}, header={})
 
 sp.plotter(figure=pl.figure(1), clear=True)
 sp.specfit(fittype='gaussian', guesses='moments')
