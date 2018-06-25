@@ -87,7 +87,9 @@ for tk in test_parameters['TKIN']:
                     signoise.append(fake_spec.max()/noise)
                     fake_spec += np.random.randn(fake_spec.size) * noise
 
-                sp = pyspeckit.Spectrum(xarr=xarr, data=fake_spec, err=err,units='K', header=pyfits.Header({'BUNIT':'K'}))
+                sp = pyspeckit.Spectrum(xarr=xarr, data=fake_spec,
+                                        err=err,units='K',
+                                        header=pyfits.Header({'BUNIT':'K'}))
                 
                 # sp.plotter()
 

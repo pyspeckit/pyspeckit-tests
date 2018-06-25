@@ -25,7 +25,8 @@ def test_specfit(rawdata, noise, error, params):
 	                       params[1] + abs(np.random.randn()) * parameter_error_amplitude[1],
 	                       params[2] + abs(np.random.randn()) * parameter_error_amplitude[2]]
 		guesses = np.array(params)+parameter_noise
-		sp = Spectrum(xarr=xarr, data=rawdata+noise, error=error)
+                sp = Spectrum(xarr=xarr, data=rawdata+noise, error=error,
+                              header={})
 		# sp.plotter(axis=plt.gca(), errstyle='fill')
 		sp.specfit(guesses=guesses)
 		assertion = ((np.array(sp.specfit.fitter.mpp)-np.array(params))/parameter_noise)**2

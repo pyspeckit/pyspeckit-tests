@@ -89,7 +89,7 @@ def fitrow(n):
     Y=z[239*n:239*(n+1)]; X=x[239*n:239*(n+1)]
     xarr = pyspeckit.spectrum.units.SpectroscopicAxis(X)
     yarr = pyspeckit.spectrum.units.SpectroscopicAxis(Y)
-    sp = pyspeckit.Spectrum(xarr=xarr,data=yarr)
+    sp = pyspeckit.Spectrum(xarr=xarr, data=yarr, header={})
     sp.specfit.Registry.add_fitter('lorentzian',
                                    lorentzian_fitter(),
                                    3,

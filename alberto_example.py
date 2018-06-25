@@ -26,7 +26,10 @@ for i in range(len(files)):
     flux = X[i][:,0]**2/c*1e29*X[i][:,1] # microJy
     fluxerr = X[i][:,0]**2/c*1e29*X[i][:,2] # microJy
 
-    spec.append(pyspeckit.Spectrum(xarr=wav,data=flux,err=fluxerr,units='Jy',xarrkwargs={'unit':'angstrom'}))
+    spec.append(pyspeckit.Spectrum(xarr=wav, data=flux, err=fluxerr,
+                                   units='Jy', xarrkwargs={'unit':'angstrom'},
+                                   header={}
+                                  ))
     spec[i].units = 'Jy'
     spec[i].xarr.frame = 'obs'
     spec[i].xarr.redshift = z0
