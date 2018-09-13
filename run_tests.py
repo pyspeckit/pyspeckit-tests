@@ -31,6 +31,7 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore", category=ImportWarning) # for a cython bug: https://github.com/astropy/astropy/issues/6025
     warnings.filterwarnings("ignore", category=FutureWarning, module='h5py') # see commit message
     warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module='astropy') # see commit message
+    warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module='astropy.wcs') # see commit message
     try:
         warnings.filterwarnings("error", category=ResourceWarning)
     except NameError:
