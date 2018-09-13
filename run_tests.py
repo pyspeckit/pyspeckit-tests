@@ -33,6 +33,7 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module='astropy') # see commit message
     warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module='astropy.wcs') # see commit message
     warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module='numpy.matrixlib') # see commit message
+    warnings.filterwarnings("ignore", category=FutureWarning, module='spectral_cube') # tuple(list(inds)); may need to be numpy
     try:
         warnings.filterwarnings("error", category=ResourceWarning)
     except NameError:
