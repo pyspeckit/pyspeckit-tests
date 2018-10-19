@@ -13,7 +13,7 @@ interactive=False
 def execute_file(fn, lglobals=None, llocals=None):
     with open(fn, 'rb') as f:
         code = compile(f.read(), fn, 'exec')
-        
+
     if lglobals is None:
         lglobals = {}
     if llocals is None:
@@ -250,6 +250,8 @@ def test_everything(savedir=''):
         execute_file(os.path.join(dir_prefix,'test_formaldehyde_radex.py'),{'interactive':interactive,'savedir':savedir})
         print("*****test_formaldehyde.py*****")
         execute_file(os.path.join(dir_prefix,'test_formaldehyde.py'),{'interactive':interactive,'savedir':savedir})
+        print("*****mpl3_regression_i286.py*****")
+        execute_file(os.path.join(dir_prefix,'mpl3_regression_i286.py'),{'interactive':interactive,'savedir':savedir})
 
 
         print("*****test_voigt.py*****")
@@ -274,7 +276,7 @@ def test_everything(savedir=''):
 
     print("#####Testing Examples#####")
     dir_prefix += example_prefix
-        
+
     #NOT WORKING EXAMPLES
     #missing file
     # print("*****fit_nh3_cube.py*****")
@@ -283,10 +285,10 @@ def test_everything(savedir=''):
     #ValueError: Set parameter value -0.42303302433020978 < limit value 0
     # print("*****multivoigt.py*****")
     # execute_file(os.path.join(dir_prefix,'multivoigt.py'))
-    
+
     # print("*****interactive_example_hr2421.py*****")
     # execute_file(os.path.join(dir_prefix,'interactive_example_hr2421.py'))
-    
+
     #WORKING EXAMPLES
     #runs 630 fits; left it out
     print("*****n2hp_cube_example.py*****")
@@ -311,9 +313,9 @@ def test_everything(savedir=''):
     print("*****ammonia_vtau_fit_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_fit_example.py'))
     print("*****ammonia_fit_example.py*****")
-    execute_file(os.path.join(dir_prefix,'ammonia_fit_example.py'))    
+    execute_file(os.path.join(dir_prefix,'ammonia_fit_example.py'))
     print("*****ammonia_fit_example_wrapper.py*****")
-    execute_file(os.path.join(dir_prefix,'ammonia_fit_example_wrapper.py'))    
+    execute_file(os.path.join(dir_prefix,'ammonia_fit_example_wrapper.py'))
     print("*****ammonia_vtau_multitem_example.py*****")
     execute_file(os.path.join(dir_prefix,'ammonia_vtau_multitem_example.py'))
 
