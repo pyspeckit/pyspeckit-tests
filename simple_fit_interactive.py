@@ -110,14 +110,16 @@ if hasattr(spec.plotter.figure.canvas,'toolbar'):
     # make sure zoom worked
     try:
         np.testing.assert_array_almost_equal(spec.plotter.axis.get_xlim(), [-20, 75])
+        np.testing.assert_array_almost_equal(spec.plotter.axis.get_ylim(), [-0.07, 0.16])
     except AssertionError:
         # in a few versions of matplotlib, for reasons I can't understand (10/20/2018), the zoom limits are
         # array([-20.778546,  73.879274]), which is definitely wrong, but I don't know how to test this or
         # reproduce it.  It happens on mpl1.5 and mpl3 on python3.6, but not mpl2.  Maybe one of travis's setups
         # is different?
         if (np.abs(spec.plotter.axis.get_xlim()[0] + 20) > 1) or (np.abs(spec.plotter.axis.get_xlim()[1] - 75) > 2):
-            raise ValueError("Zooming failed by more than one pixel")
-    np.testing.assert_array_almost_equal(spec.plotter.axis.get_ylim(), [-0.07, 0.16])
+            raise ValueError("Zooming x failed by more than one pixel")
+        if (np.abs(spec.plotter.axis.get_ylim()[0] + 0.07) > 0.01) or (np.abs(spec.plotter.axis.get_ylim()[1] - 0.16) > 0.01):
+            raise ValueError("Zooming y failed by more than 0.01 pixel")
 else:
     spec.plotter.axis.set_xlim(-20, 75)
     spec.plotter.axis.set_ylim(-0.07, 0.16)
