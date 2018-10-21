@@ -102,6 +102,9 @@ def lim_checking(axis):
     This is a gigantic hack to deal with failures on matplotlib 3 and, in rare
     cases, on matplotlib 1.5
     """
+    # This line is 100% not necessary.  But, travis thinks it is. WTF?!!?
+    # https://travis-ci.org/pyspeckit/pyspeckit/jobs/444505317#L1344
+    import numpy as np
     # make sure zoom worked
     try:
         np.testing.assert_array_almost_equal(axis.get_xlim(), [-20, 75])
