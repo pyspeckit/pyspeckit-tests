@@ -119,6 +119,11 @@ def lim_checking(axis):
         if (np.abs(axis.get_ylim()[0] + 0.07) > 0.01) or (np.abs(axis.get_ylim()[1] - 0.16) > 0.01):
             raise ValueError("Zooming y failed by more than 0.01 pixel")
 
+        # if the limits were set unsuccessfully, we need to force them into
+        # place, otherwise future measurements also end up in error
+        axis.set_xlim(-20, 75)
+        axis.set_ylim(-0.07, 0.16)
+
 if hasattr(spec.plotter.figure.canvas,'toolbar'):
     spec.plotter.figure.canvas.toolbar.press_zoom(event2)
     # mpl 1.5:
