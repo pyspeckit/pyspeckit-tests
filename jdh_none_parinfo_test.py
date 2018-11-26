@@ -2,10 +2,6 @@ from astropy.table import Table
 from astropy import log
 from pyspeckit.spectrum import Spectrum
 
-import os
-print("current path: ",os.getcwd())
-print(os.listdir())
-
 tbl = Table.read('problemspec.txt', format='ascii')
 
 sp = Spectrum(xarr=tbl['x'], data=tbl['y'].data, header={})
