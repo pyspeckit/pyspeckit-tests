@@ -220,6 +220,11 @@ def test_everything(savedir=''):
         print("*****test_moments.py*****")
         execute_file(os.path.join(dir_prefix,'test_moments.py'))
 
+        # regression test for issue w/error=None vs error=0, which changed
+        # behavior from v0.9.7 to v0.9.11 of lmfit
+        print("*****jdh_none_parinfo_test.py*****")
+        execute_file(os.path.join(dir_prefix,'jdh_none_parinfo_test.py'))
+
         print("*****baseline_test_synth.py*****")
         execute_file(os.path.join(dir_prefix,'baseline_test_synth.py'))
         print("*****test_cube_init.py*****")
