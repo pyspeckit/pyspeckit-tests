@@ -16,12 +16,13 @@ try:
     #log.setLevel('DEBUG')
     sp.specfit(guesses=[0.042577108420564426, 47.709708298124426, 0.6840788813117882], use_lmfit=True, quiet=True, debug=False)
     print("lmfit modelpars, modelerrs: ", sp.specfit.modelpars, sp.specfit.modelerrs, sp.specfit.fitter.mp.ier)
+
+    for par in sp.specfit.parinfo:
+        assert par.error is None
+
 except ImportError:
     # skip the test if lmfit is unavailable
     pass
-
-for par in sp.specfit.parinfo:
-    assert par.error is None
 
 sp.specfit(guesses=[0.042577108420564426, 47.709708298124426, 0.6840788813117882], use_lmfit=False, quiet=True, debug=False)
 print("mpfit modelpars, modelerrs: ", sp.specfit.modelpars, sp.specfit.modelerrs, sp.specfit.fitter.mp.status)
