@@ -77,10 +77,6 @@ def test_everything(savedir=''):
                             message="IOStream",
                             category=DeprecationWarning)
     warnings.filterwarnings("ignore", category=DeprecationWarning,
-                            module='numpy',
-                            message='np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead')
-    warnings.filterwarnings("ignore", category=DeprecationWarning,
-                            module='matplotlib',
                             message='np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead')
 
 
