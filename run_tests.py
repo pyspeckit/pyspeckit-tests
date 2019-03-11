@@ -298,8 +298,13 @@ def test_everything(savedir=''):
 
     #WORKING EXAMPLES
     #runs 630 fits; left it out
-    print("*****n2hp_cube_example.py*****")
-    execute_file(os.path.join(dir_prefix,'n2hp_cube_example.py'))
+    with warnings.catch_warnings():
+        # nuclear option: need to get matplotlib/numpy interaction to NOT raise
+        # deprecation warnings (we don't do anything deprecated in pyspeckit
+        # as of this commit, but mpl does)
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+        print("*****n2hp_cube_example.py*****")
+        execute_file(os.path.join(dir_prefix,'n2hp_cube_example.py'))
     # missing files
     #print("*****hcn_cube_test.py*****")
     #execute_file(os.path.join(dir_prefix,'hcn_cube_test.py'))
