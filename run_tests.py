@@ -46,7 +46,7 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore",
                             message="Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated, and in 3.8 it will stop working",
                             category=DeprecationWarning,
-                            module='matplotlib') # may need to do this in collections?
+                            module='collections') # may need to do this in collections?
     warnings.filterwarnings("ignore",
                             message="inspect.getargspec() is deprecated, use inspect.signature() instead",
                             category=DeprecationWarning,
