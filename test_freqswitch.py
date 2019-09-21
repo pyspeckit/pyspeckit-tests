@@ -1,6 +1,6 @@
 from __future__ import print_function
 from astropy import units as u
-from astropy.extern.six import iteritems
+from six import iteritems
 import astropy
 try:
     from astropy.io import fits as pyfits

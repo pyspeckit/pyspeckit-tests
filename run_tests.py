@@ -3,7 +3,7 @@ import os
 import sys
 import matplotlib
 import warnings
-from astropy.extern.six.moves.urllib.error import URLError
+from six.moves.urllib.error import URLError
 from astropy.utils.console import ProgressBar
 from astropy import wcs
 from .utils import run_tests

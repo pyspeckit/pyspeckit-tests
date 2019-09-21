@@ -1,4 +1,4 @@
-from astropy.extern.six.moves import xrange
+from six.moves import xrange
 import pyspeckit
 import numpy as np
 try:
