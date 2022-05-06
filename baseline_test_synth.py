@@ -5,7 +5,7 @@ import numpy as np
 import pylab as pl
 
 length = 50
-x = np.linspace(0.0,0.15, length)
+x = np.linspace(0.01,0.15, length)
 # create a baseline based on pixel coordinates (which is how it gets fit unless
 # a unit is specified)
 # alternative: baseline = np.polyval([2.0, 1.0], x) will lead to assertion

@@ -159,8 +159,8 @@ print("Includemask after excludefit with window limits: ",spec.xarr[spec.baselin
 # total 512 pixels, 5 (or 7?) should be excluded inside, 80 should be available
 assert spec.baseline.includemask.sum() == 80
 spec.specfit(guesses='moments', use_window_limits=True)
-np.testing.assert_array_almost_equal(spec.specfit.parinfo.values,
-                                     np.array([0.151523,  27.162823,   0.942997]))
+np.testing.assert_allclose(spec.specfit.parinfo.values,
+                                     np.array([0.151523,  27.162823,   0.942997]), rtol=1e-2)
 
 # Regression test: make sure baseline selection works
 # this should *NOT* be 107!  107 is ALL data between -100 and +20
@@ -192,8 +192,8 @@ event2.inaxes,event2.button,event2.xdata,event2.ydata = spec.plotter.axis,3,204,
 spec.baseline.event_manager(event2,debug=True)
 spec.plotter.axis.set_xlim(-100, 150)
 spec.baseline.highlight_fitregion()
-np.testing.assert_array_almost_equal(spec.baseline.baselinepars,
-                                     np.array([-0.00024,  0.043014]))
+np.testing.assert_allclose(spec.baseline.baselinepars,
+                                     np.array([-0.00024,  0.043014]), rtol=1e-2)
 
 
 spec.baseline.selectregion(reset=True)
