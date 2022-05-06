@@ -16,7 +16,7 @@ sp = pyspeckit.Spectrum('sample_13CO.fits')
 print("Does it have an axis? ",sp.plotter.axis)
 sp.plotter()
 print("How about now? ",sp.plotter.axis)
-assert sp.plotter.xlabel == 'Velocity (m / s)'
+assert sp.plotter.xlabel == 'speed/velocity (m / s)'
 assert sp.plotter.ylabel == "Brightness Temperature $T$ (K)"
 
 
