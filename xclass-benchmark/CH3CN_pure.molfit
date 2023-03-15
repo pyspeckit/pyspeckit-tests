@@ -7,4 +7,4 @@
 %    source size:                 T_kin:               N_tot:            V_width:                V_off:   CFFlag:    keyword:
 %       [arcsec]:                   [K]:              [cm-2]:            [km /s]:              [km /s]:       []:         []:
 CH3CN;v=0;           1
- 4.3350376922       350     1e+17     4.2101396644    -7.9         c
+ 4.3350376922       79.842254347     1.0061155735e+16     4.2101396644    -7.9         c
