@@ -9,6 +9,11 @@ from astropy import wcs
 from .utils import run_tests
 interactive=False
 
+try:
+    from matplotlib._api.deprecation import MatplotlibDeprecationWarning
+except ImportError:
+    MatplotlibDeprecationWarning = DeprecationWarning
+
 # for python 3
 def execute_file(fn, lglobals=None, llocals=None):
     with open(fn, 'rb') as f:
@@ -86,6 +91,10 @@ def test_everything(savedir=''):
                             category=DeprecationWarning)
     warnings.filterwarnings("ignore", category=DeprecationWarning,
                             message='np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead')
+    warnings.filterwarnings("ignore", category=MatplotlibDeprecationWarning)
+    warnings.filterwarnings("ignore",
+                            message="distutils Version classes are deprecated. Use packaging.version instead.",
+                            category=DeprecationWarning)
 
 
     with warnings.catch_warnings():

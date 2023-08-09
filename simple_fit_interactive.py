@@ -3,7 +3,10 @@ import pyspeckit
 import matplotlib
 import numpy as np
 from astropy import units as u
-from distutils.version import StrictVersion
+try:
+    from packaging.version import parse as StrictVersion
+except ImportError:
+    from distutils.version import StrictVersion
 
 if not 'savedir' in globals():
     savedir = ''
