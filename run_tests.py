@@ -95,6 +95,7 @@ def test_everything(savedir=''):
     warnings.filterwarnings("ignore",
                             message="distutils Version classes are deprecated. Use packaging.version instead.",
                             category=DeprecationWarning)
+    warnings.filterwarnings("ignore", message="The get_cmap function will be deprecated in a future version.*")
 
 
     with warnings.catch_warnings():
